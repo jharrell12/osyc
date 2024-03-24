@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_24_210243) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
+  create_table "addresses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "person_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.string "label"
+    t.string "street"
+    t.string "city"
+    t.string "state"
+    t.string "zipcode"
+    t.index ["person_id"], name: "index_addresses_on_person_id"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "person_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.string "label"
+    t.string "address"
+    t.index ["person_id"], name: "index_emails_on_person_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,10 +58,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_210243) do
     t.index ["membership_id"], name: "index_people_on_membership_id"
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "person_id", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.string "label"
+    t.string "number"
+    t.index ["person_id"], name: "index_phones_on_person_id"
+  end
+
   create_table "test_table", force: :cascade do |t|
     t.string "field_1", limit: 40
     t.string "field_2", limit: 40
   end
 
+  add_foreign_key "addresses", "people"
+  add_foreign_key "emails", "people"
   add_foreign_key "people", "memberships"
+  add_foreign_key "phones", "people"
 end

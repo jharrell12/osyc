@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :addresses
+  resources :phones
+  resources :emails
   resources :people
   resources :memberships
   get 'splash/index'
