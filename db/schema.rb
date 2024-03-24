@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_24_213454) do
   create_table "addresses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,6 +25,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
     t.index ["person_id"], name: "index_addresses_on_person_id"
   end
 
+  create_table "charges", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "invoice_id", null: false
+    t.string "description"
+    t.integer "price"
+    t.index ["invoice_id"], name: "index_charges_on_invoice_id"
+  end
+
   create_table "emails", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,6 +45,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
     t.index ["person_id"], name: "index_emails_on_person_id"
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "membership_id", null: false
+    t.string "status"
+    t.datetime "posted_date"
+    t.date "due_date"
+    t.integer "balance_due"
+    t.index ["membership_id"], name: "index_invoices_on_membership_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,6 +65,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
     t.string "boats"
     t.string "slip_assignment"
     t.string "children"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "invoice_id", null: false
+    t.date "date"
+    t.integer "amount"
+    t.string "check_number"
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -70,7 +100,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
   end
 
   add_foreign_key "addresses", "people"
+  add_foreign_key "charges", "invoices"
   add_foreign_key "emails", "people"
+  add_foreign_key "invoices", "memberships"
+  add_foreign_key "payments", "invoices"
   add_foreign_key "people", "memberships"
   add_foreign_key "phones", "people"
 end
