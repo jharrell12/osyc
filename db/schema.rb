@@ -69,11 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_24_211825) do
     t.index ["person_id"], name: "index_phones_on_person_id"
   end
 
-  create_table "test_table", force: :cascade do |t|
-    t.string "field_1", limit: 40
-    t.string "field_2", limit: 40
-  end
-
   add_foreign_key "addresses", "people"
   add_foreign_key "emails", "people"
   add_foreign_key "people", "memberships"
