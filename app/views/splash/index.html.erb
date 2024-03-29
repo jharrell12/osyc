@@ -1,37 +1,13 @@
-<h1>Bootstrap Test</h1>
-<p><%= `hostname -a` %></p>
-<p>Find me in app/views/home/index.html.erb</p>
-<p>The dropdown will not work until JS is working</p>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">  
+    <h2 class="display-5 fw-bold">OSYC Membership Tracker</h2>
+    <p class="col-md-8 fs-4">Term Project for CSC-4xxx.</p>
+    <hr class="my-4">
+    <p class="lead">Oconee Sailing and Yacht Club<br>Lake Sinclair, Milledgeville, Georgia</p>
   </div>
-</nav>
+</div>
+
+
+<p>Host: <%= `hostname -a` %></p>
 

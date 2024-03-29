@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Osyc</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>OSYC Membership Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,6 +11,11 @@
   </head>
 
   <body data-turbo-prefetch="false">
-    <%= yield %>
+    <%= render partial: 'layouts/header' %>
+    <div class=container>
+      <%= render partial: 'layouts/flash_messages' %>
+      <%= yield %>
+    </div>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>
