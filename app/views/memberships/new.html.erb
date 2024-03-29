@@ -1,9 +1,3 @@
-<h1>New membership</h1>
+<%= page_caption "Enter New Member Info" %>
 
-<%= render "form", membership: @membership %>
-
-<br>
-
-<div>
-  <%= link_to "Back to memberships", memberships_path %>
-</div>
+<%= render "form", membership: @membership, path: memberships_path %>

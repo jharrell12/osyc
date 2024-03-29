@@ -74,17 +74,25 @@ module FormHelper
     link_to(lbl, url, opts)
   end
 
-  def edit_button(lbl, url, opts = {})
+  def show_button(lbl, url, opts = {})
     lbl ||= svg_pencil_fill
-    opts[:class] = 'btn py-0 btn-outline-success mx-1'
+    opts[:class] = 'btn py-0 btn-outline-info mx-1'
     link_to(lbl, url, opts)
   end
 
+  def edit_button(lbl, url, opts = {})
+    lbl ||= svg_pencil_fill + ' Edit'
+    opts[:method] = :get
+    opts[:class] = 'btn py-0 btn-outline-success mx-2'
+    button_to(lbl, url, opts)
+  end
+
   def delete_button(lbl, url, confirm = nil)
-    lbl ||= svg_trash_fill
+    lbl ||= svg_trash_fill + ' Delete'
     opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
-    #TODO confirm does not work!
-    opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
+    #FIXED data-confirm does not work in bs5!
+    #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
+    opt[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
     button_to(lbl, url, opt)
   end  
 
@@ -238,6 +246,18 @@ module FormHelper
     std_select_field(rec, fld, choices, sopts, hopts)
   end
 
+  def std_date_field(rec, fld, opt = {})
+    opt[:class] ||= 'form-control'
+    opt[:type] ||= 'date'
+    text_field(rec, fld, opt)
+  end
+
+  def required_date_field(rec, fld, opt = {})
+    opt[:required] ||= true
+    std_date_field(rec, fld, opt)  
+  end
+
+
   def std_text_field(rec, fld, opt = {})
     opt[:class] ||= 'form-control'
     text_field(rec, fld, opt)
@@ -317,7 +337,7 @@ module FormHelper
   def input_table_form body = nil, &block
     body = get_content_body_or_block(body, &block)
     content_tag(:div, class: 'form-group mb-2') do 
-      content_tag(:table, class: 'table-borderless') do 
+      content_tag(:table, class: 'table table-borderless') do 
         content_tag(:tbody, body)
       end
     end

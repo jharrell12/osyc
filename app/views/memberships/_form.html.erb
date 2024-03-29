@@ -1,47 +1,16 @@
-<%= form_with(model: membership) do |form| %>
-  <% if membership.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
 
-      <ul>
-        <% membership.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :boats, style: "display: block" %>
-    <%= form.text_field :boats %>
-  </div>
-
-  <div>
-    <%= form.label :slip_assignment, style: "display: block" %>
-    <%= form.text_field :slip_assignment %>
-  </div>
-
-  <div>
-    <%= form.label :children, style: "display: block" %>
-    <%= form.text_field :children %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= 
+input_form(path) do |f|
+  f << error_messages_for(:membership)
+  f << input_table_form do |s|
+    s << input_table_row('Role',       required_select_field(:membership, :status, Membership.status_options_for_select, {}, autofocus: true) )
+    s << input_table_row('Start Date', required_date_field(:membership, :start_date) )
+    s << input_table_row('Boats',      std_text_field(:membership, :boats) )
+    s << input_table_row('Slip',       std_text_field(:membership, :slip_assignment) )
+    s << input_table_row('Children',   std_text_field(:membership, :children) )    
+    s << input_table_row('End Date',   std_date_field(:membership, :end_date) )
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', path) )
+    #s << input_table_row('', loading_spinner)
+  end
+end
+%>

@@ -18,6 +18,10 @@ class Membership < ApplicationRecord
       errors.add(:status, "must be one of #{VALID_STATUSES}")
     end
   end
+
+  def self.status_options_for_select
+    VALID_STATUSES
+  end
   #--------------------------------------------------------------
   def initialize(vals = nil)
     vals ||= Hash.new

@@ -1,32 +1,15 @@
 <div id="<%= dom_id membership %>">
-  <p>
-    <strong>Start date:</strong>
-    <%= membership.start_date %>
-  </p>
 
-  <p>
-    <strong>End date:</strong>
-    <%= membership.end_date %>
-  </p>
+<%=
+    data_table(nil, nil) do |s|
+      s << labeled_data_row('Status', membership.status.titleize)
+      s << labeled_data_row('Start Date', membership.start_date)
+      s << labeled_data_row('End Date', membership.end_date)
+      s << labeled_data_row('Boats', membership.boats)
+      s << labeled_data_row('Slip', membership.slip_assignment)
+      s << labeled_data_row('Children', membership.children)
 
-  <p>
-    <strong>Status:</strong>
-    <%= membership.status %>
-  </p>
-
-  <p>
-    <strong>Boats:</strong>
-    <%= membership.boats %>
-  </p>
-
-  <p>
-    <strong>Slip assignment:</strong>
-    <%= membership.slip_assignment %>
-  </p>
-
-  <p>
-    <strong>Children:</strong>
-    <%= membership.children %>
-  </p>
-
+      s << labeled_data_row('', member_actions(membership))
+    end
+%>
 </div>
