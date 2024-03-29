@@ -16,3 +16,21 @@
 
 @import "bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
+
+
+/* https://jsfiddle.net/5pm33a5x/253/ */
+
+table {
+  /* override Bootstrap's width */
+  width: inherit !important;
+}
+
+tr {}
+td, th {
+  width: auto;
+  border: 1px solid #eee;
+}
+td.min, th.min {
+  width: 1% !important;
+  white-space: nowrap !important;
+}

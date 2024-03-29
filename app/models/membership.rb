@@ -8,6 +8,9 @@ class Membership < ApplicationRecord
   truncate_strings :status, :boats, :slip_assignment, :children
   strip_strings :status, :boats, :slip_assignment, :children
 
+  validates_presence_of :start_date
+  validate :validate_status
+
   VALID_STATUSES = %w(new applied posted accepted active inactive resigned deleted)
 
   def validate_status

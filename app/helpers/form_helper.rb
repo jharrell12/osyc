@@ -335,7 +335,7 @@ module FormHelper
   def data_table caption, header, body = nil, &block
     body = get_content_body_or_block(body, &block)
     body = '' if body.blank?
-    content_tag(:table, class: 'table table-striped table-bordered table-hover table-sm w-auto') do
+    content_tag(:table, class: 'table min table-striped table-bordered table-hover table-sm w-auto') do
       s = new_html_str
       s << content_tag(:caption, caption, style: 'caption-side: top') unless caption.blank?
       s << content_tag(:thead,   header) unless header.blank?
@@ -382,7 +382,6 @@ module FormHelper
       str =  i[0].to_s
       opt = opt.merge(i[1].class == Integer ? {width: "#{i[1].to_s}%"} : i[1])
     else
-      #opt = opt.merge(width: '1%')
       str = i.to_s
     end
     [str, opt]

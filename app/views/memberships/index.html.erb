@@ -1,26 +1,26 @@
-<p style="color: green"><% notice %></p>
+<p style="color: green"><%= notice %></p>
 
 <%= page_caption "Members" %>
 
 <%=
-  caption = data_table_caption('Manage', button_group_div(add_button((svg_person_plus + "New Member"))) )
-  header = field_label_row(['', ['#',1], ['Status',1],['Start',1],'Names','Boats','Slip','Children',['Resigned',1], updated_lbl])
+  caption = data_table_caption('', button_group_div(add_button((svg_person_plus + "New Member"))) )
+  header = field_label_row(['', '#', 'Status','Start','Names','Boats','Slip','Children','Resigned', updated_lbl])
   data_table(caption, header) do |s|
     if @memberships.empty?
-      flash[:notice] = 'No matching member found.'
+      flash[:notice] = 'No matching members found.'
       nil
     else
       @memberships.each  do |member| 
       s << data_item_row([
             membership_actions(member),
-            [member.id,1],
+            member.id,
             member.status,
-            [member.start_date,1],
+            member.start_date,
             '-',
             member.boats,
             member.slip_assignment,
             member.children,
-            [member.end_date,1],
+            member.end_date,
             updated_by_col(member),
             ])
         end
