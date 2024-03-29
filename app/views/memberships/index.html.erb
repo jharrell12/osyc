@@ -1,5 +1,19 @@
 <%= page_caption "Members" %>
 
+<div class=container>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+     <ul class="navbar-nav mr-auto">
+     </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <%= form_tag(memberships_path, method: :get, class: 'd-flex flex-row align-items-right flex-wrap', autocomplete: 'off') %>
+        <input  id='search_name' name='search[name]' class="mt-3" placeholder="Member Name" >
+        <button class="btn btn-outline-success mt-3 mx-1" type="submit">Search</button>
+      </form>    
+    </div>
+  </nav>
+</div>
+
+
 <%=
   caption = data_table_caption('', button_group_div(add_button((svg_person_plus + "New Member"))) )
   header = field_label_row(['', '#', 'Status','Start','Names','Boats','Slip','Children','Resigned', updated_lbl])
@@ -14,7 +28,7 @@
             member.id,
             member.status.titleize,
             member.start_date,
-            '-',
+            '-names-',
             member.boats,
             member.slip_assignment,
             member.children,
