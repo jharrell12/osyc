@@ -3,7 +3,7 @@
 one:
   start_date: 2024-03-24
   end_date: 2024-03-24
-  status: MyString
+  status: new
   boats: MyString
   slip_assignment: MyString
   children: MyString
@@ -11,7 +11,7 @@ one:
 two:
   start_date: 2024-03-24
   end_date: 2024-03-24
-  status: MyString
+  status: new
   boats: MyString
   slip_assignment: MyString
   children: MyString

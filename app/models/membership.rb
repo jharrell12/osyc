@@ -21,7 +21,6 @@ class Membership < ApplicationRecord
   #--------------------------------------------------------------
   def initialize(vals = nil)
     vals ||= Hash.new
-    #vals[:uuid] ||= SecureRandom.uuid
     vals[:start_date] ||= Date.today
     vals[:status] ||= VALID_STATUSES.first
     super(vals)
