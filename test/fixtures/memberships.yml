@@ -2,16 +2,16 @@
 
 one:
   start_date: 2024-03-24
-  end_date: 2024-03-24
-  status: new
-  boats: MyString
-  slip_assignment: MyString
-  children: MyString
+  end_date: 
+  status: Active
+  boats: F210
+  slip_assignment: A2
+  children: Joseph, Jaime
 
 two:
   start_date: 2024-03-24
-  end_date: 2024-03-24
-  status: new
-  boats: MyString
-  slip_assignment: MyString
-  children: MyString
+  end_date: 
+  status: Active
+  boats: S26.9
+  slip_assignment: A1
+  children: 
