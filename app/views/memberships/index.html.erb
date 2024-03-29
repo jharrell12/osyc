@@ -14,7 +14,7 @@
       s << data_item_row([
             membership_actions(member),
             member.id,
-            member.status,
+            member.status.titleize,
             member.start_date,
             '-',
             member.boats,
