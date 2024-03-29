@@ -3,7 +3,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships or /memberships.json
   def index
-    @memberships = Membership.all
+    @memberships = Membership.all.order(:id)
   end
 
   # GET /memberships/1 or /memberships/1.json

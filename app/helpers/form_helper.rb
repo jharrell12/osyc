@@ -83,8 +83,9 @@ module FormHelper
   def delete_button(lbl, url, confirm = nil)
     lbl ||= svg_trash_fill
     opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
+    #TODO confirm does not work!
     opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
-    link_to(lbl, url, opt)
+    button_to(lbl, url, opt)
   end  
 
   def filter_button(lbl = nil)
@@ -280,19 +281,20 @@ module FormHelper
   #-------------------------------------------------------------------------
   # cell formatting
   def bold_item(str)
-    [str, class: 'font-weight-bold']
+    [str, class: 'fw-bold']
   end
 
   def small_light_item(str)
-    [str, class: 'small font-weight-light']
+    [str, class: 'small fw-light']
   end
 
   def updated_lbl(str = 'Updated')
-    small_light_item('Updated')
+    #small_light_item('Updated')
+    [str, class: 'small fw-light', width: '1%']
   end
 
   def updated_by_col(rec)
-    content_tag(:span, rec.updated_str.to_utfnb, class: 'small font-weight-light')
+    [content_tag(:span, rec.updated_at_str.to_utfnb, class: 'small fw-light'), 1]
   end
 
   #-------------------------------------------------------------------------
@@ -333,7 +335,7 @@ module FormHelper
   def data_table caption, header, body = nil, &block
     body = get_content_body_or_block(body, &block)
     body = '' if body.blank?
-    content_tag(:table, class: 'table-striped table-bordered table-hover table-sm') do
+    content_tag(:table, class: 'table table-striped table-bordered table-hover table-sm w-auto') do
       s = new_html_str
       s << content_tag(:caption, caption, style: 'caption-side: top') unless caption.blank?
       s << content_tag(:thead,   header) unless header.blank?
@@ -380,6 +382,7 @@ module FormHelper
       str =  i[0].to_s
       opt = opt.merge(i[1].class == Integer ? {width: "#{i[1].to_s}%"} : i[1])
     else
+      #opt = opt.merge(width: '1%')
       str = i.to_s
     end
     [str, opt]

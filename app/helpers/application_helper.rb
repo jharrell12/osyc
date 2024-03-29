@@ -1,15 +1,13 @@
 module ApplicationHelper
 
-  def render_jumbo_title(subtitle, include_agreement = false)
-    render partial: 'layouts/title', locals: {main_title: app_title_str, subtitle: subtitle, include_agreement: include_agreement}
-  end
-
   def render_jumbo_page_title(page_title, subtitle = nil, text = nil)
-    content_tag(:div, class: 'jumbotron') do
-      s = content_tag(:h1, page_title, class: 'display-5')
-      s << content_tag(:h2, subtitle, class: 'text-danger') if subtitle
-      s << content_tag(:p, text, class: 'lead text-danger') if text
-      s
+    content_tag(:div, class: 'p-5 mb-4 bg-light rounded-3') do
+      content_tag(:div, class: 'container-fluid py-5') do
+        s = content_tag(:h1, page_title, class: 'display-5')
+        s << content_tag(:h2, subtitle, class: 'text-danger') if subtitle
+        s << content_tag(:p, text, class: 'lead text-danger') if text
+        s
+      end
     end
   end
 
@@ -26,17 +24,6 @@ module ApplicationHelper
     params[:controller] == 'splash' && params[:action] == 'index'
   end
 
-  def is_home_page?
-    params[:controller] == 'home' && params[:action] == 'home'
-  end
-
-  def is_auth_page?
-    params[:controller] == 'auth' 
-  end
-
-  def is_login_page?
-    is_auth_page? && params[:action] == 'login'
-  end
 
   def new_html_str
     # ''.html_safe
