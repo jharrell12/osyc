@@ -55,11 +55,6 @@ module FormHelper
     button_tag(submit_lbl, class: 'btn btn-success mx-1', name: 'my_submit_button')
   end
 
-  def next_button(submit_lbl = nil, redirect_path = nil)
-    submit_lbl ||= 'Next'
-    button_tag(submit_lbl, class: 'btn btn-success mx-1', name: 'my_submit_button', onclick: "window.location.href='#{redirect_path}'")
-  end
-
   def inline_submit_button(submit_lbl = nil)
     submit_lbl ||= 'Save'
     button_tag(submit_lbl, class: 'btn btn-success ml-3 mr-1 mt-4', name: 'my_submit_button')
@@ -161,10 +156,6 @@ module FormHelper
 
   def submit_and_cancel_buttons(submit_lbl = nil, cancel_lbl = nil, cancel_path = nil)
     button_toolbar_div(submit_button(submit_lbl) + cancel_button(cancel_lbl, cancel_path))
-  end
-
-  def next_and_cancel_buttons(submit_lbl = nil, cancel_lbl = nil, submit_path = nil, cancel_path = nil)
-    button_toolbar_div(next_button(submit_lbl, submit_path) + cancel_button(cancel_lbl, cancel_path))
   end
 
   def button_toolbar_div(body = nil, &block)
