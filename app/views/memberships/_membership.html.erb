@@ -1,15 +1,22 @@
 <div id="<%= dom_id membership %>">
+<%=
+  data_table('People', data_item_row(%w(last_name first_name dob birth_year).map(&:titlecase))) do |s|
+    membership.people.each do |person|
+      s << field_label_row([person.last_name, person.first_name, person.dob, person.birth_year])
+    end
+  end
+%>
 
 <%=
-    data_table(nil, nil) do |s|
-      s << labeled_data_row('Status', membership.status.titleize)
-      s << labeled_data_row('Start Date', membership.start_date)
-      s << labeled_data_row('End Date', membership.end_date)
-      s << labeled_data_row('Boats', membership.boats)
-      s << labeled_data_row('Slip', membership.slip_assignment)
-      s << labeled_data_row('Children', membership.children)
+  data_table('Info', nil) do |s|
+    s << labeled_data_row('Status', membership.status.titleize)
+    s << labeled_data_row('Start Date', membership.start_date)
+    s << labeled_data_row('Boats', membership.boats)
+    s << labeled_data_row('Slip', membership.slip_assignment)
+    s << labeled_data_row('Children', membership.children)
+    s << labeled_data_row('End Date', membership.end_date)
 
-      s << labeled_data_row('', member_actions(membership))
-    end
+    s << labeled_data_row('', member_actions(membership))
+  end
 %>
 </div>
