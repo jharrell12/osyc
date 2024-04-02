@@ -23,19 +23,23 @@
       nil
     else
       @memberships.each  do |member| 
-      s << data_item_row([
-            membership_actions(member),
-            member.id,
-            member.status.titleize,
-            member.start_date,
-            '-names-',
-            member.boats,
-            member.slip_assignment,
-            member.children,
-            member.end_date,
-            updated_by_col(member),
-            ])
-        end
+
+        people = Person.where(membership_id: member.id)
+        first_name = people.first.present? ? people.first.first_name : 'N/A'
+
+        s << data_item_row([
+          membership_actions(member),
+          member.id,
+          member.status.titleize,
+          member.start_date,
+          (people.count > 1) ? first_name + ' + ' + (people.count - 1).to_s : first_name,
+          member.boats,
+          member.slip_assignment,
+          member.children,
+          member.end_date,
+          updated_by_col(member),
+        ])
+      end
     end
   end  
 %>
