@@ -13,6 +13,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.membership_id = params[:membership_id]
   end
 
   # GET /people/1/edit

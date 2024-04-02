@@ -24,7 +24,7 @@
     else
       @memberships.each  do |member| 
 
-        people = Person.where(membership_id: member.id)
+        people = member.people
         first_name = people.first.present? ? people.first.first_name : 'N/A'
 
         s << data_item_row([

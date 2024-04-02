@@ -9,7 +9,7 @@ input_form(path) do |f|
     s << input_table_row('Slip',       std_text_field(:membership, :slip_assignment) )
     s << input_table_row('Children',   std_text_field(:membership, :children) )    
     s << input_table_row('End Date',   std_date_field(:membership, :end_date) )
-    s << input_table_row('', next_and_cancel_buttons('Next', 'Cancel', people_path, path) )
+    s << input_table_row('', submit_and_cancel_buttons(submit_text, 'Cancel', path) )
     s << input_table_row('', loading_spinner)
   end
 end
