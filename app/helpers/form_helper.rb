@@ -257,6 +257,16 @@ module FormHelper
     std_date_field(rec, fld, opt)  
   end
 
+  def std_number_field(rec, fld, opt = {})
+    opt[:class] ||= 'form-control'
+    opt[:type] ||= 'number'
+    number_field(rec, fld, opt)
+  end
+
+  def required_number_field(rec, fld, opt = {})
+    opt[:required] ||= true
+    std_number_field(rec, fld, opt) 
+  end
 
   def std_text_field(rec, fld, opt = {})
     opt[:class] ||= 'form-control'

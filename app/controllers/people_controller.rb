@@ -26,7 +26,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to person_url(@person), notice: "Person was successfully created." }
+        format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully added." }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new, status: :unprocessable_entity }

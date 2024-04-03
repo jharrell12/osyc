@@ -1,10 +1,3 @@
-<h1>Editing person</h1>
+<%= page_caption "Edit Person" %>
 
-<%= render "form", person: @person %>
-
-<br>
-
-<div>
-  <%= link_to "Show this person", @person %> |
-  <%= link_to "Back to people", people_path %>
-</div>
+<%= render "form", person: @person, path: people_path, submit_text: 'Save', id_locked: false %>

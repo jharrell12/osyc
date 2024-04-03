@@ -1,27 +1,12 @@
 <div id="<%= dom_id person %>">
-  <p>
-    <strong>Membership:</strong>
-    <%= person.membership_id %>
-  </p>
 
-  <p>
-    <strong>First name:</strong>
-    <%= person.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= person.last_name %>
-  </p>
-
-  <p>
-    <strong>Dob:</strong>
-    <%= person.dob %>
-  </p>
-
-  <p>
-    <strong>Birth year:</strong>
-    <%= person.birth_year %>
-  </p>
+  <%=
+    data_table('Info', nil) do |s|
+      s << labeled_data_row('Membership', person.membership_id)
+      s << labeled_data_row('First Name', person.first_name)
+      s << labeled_data_row('Last Name', person.last_name)
+      s << labeled_data_row('DoB', person.dob.present? ? person.dob : person.birth_year)
+    end
+  %>
 
 </div>
