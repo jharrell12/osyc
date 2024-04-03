@@ -50,6 +50,11 @@ module FormHelper
     link_to(lbl, url, opts)
   end
 
+  def submit_button_tag(submit_lbl = nil, tag = nil)
+    submit_lbl ||= 'Save'
+    submit_tag(submit_lbl, class: 'btn btn-success mx-1', name: tag)
+  end
+
   def submit_button(submit_lbl = nil)
     submit_lbl ||= 'Save'
     button_tag(submit_lbl, class: 'btn btn-success mx-1', name: 'my_submit_button')
