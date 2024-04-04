@@ -2,8 +2,9 @@
 <%=
   data_table('People', data_item_row(%w(last_name first_name dob birth_year).map(&:titlecase))) do |s|
     membership.people.each do |person|
-      s << field_label_row([person.last_name, person.first_name, person.dob, person.birth_year])
+      s << field_label_row([person.last_name, person.first_name, person.dob, person.birth_year, person_actions(person)])
     end
+    s << labeled_data_row('', add_button('Add Person', new_person_path(membership_id: @membership.id)))
   end
 %>
 
@@ -18,5 +19,9 @@
 
     s << labeled_data_row('', member_actions(membership))
   end
+%>
+  
+<%=
+
 %>
 </div>
