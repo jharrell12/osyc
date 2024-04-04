@@ -29,7 +29,7 @@ module FormHelper
     opt[:class] ||= 'form-inline'
     std_form(url, opt, &block)
   end
-  
+
   # def start_form_remote_tag(action, method = 'POST', target = '', target_message = '')
   #   form_tag(action, method: method, remote: true, autocomplete: 'off', class: 'remote-form', data: { target: target, target_message: target_message })
   # end
@@ -42,7 +42,7 @@ module FormHelper
   # Button formats
   def blue_button(lbl, url, opts = {})
     opts[:class] = 'btn btn-primary mx-1'
-    link_to(lbl, url, opts)    
+    link_to(lbl, url, opts)
   end
 
   def blue_outline_button(lbl, url, opts = {})
@@ -86,20 +86,20 @@ module FormHelper
   end
 
   def edit_button(lbl, url, opts = {})
-    lbl ||= svg_pencil_fill + ' Edit'
+    lbl ||= svg_pencil_fill
     opts[:method] = :get
     opts[:class] = 'btn py-0 btn-outline-success mx-2'
     button_to(lbl, url, opts)
   end
 
   def delete_button(lbl, url, confirm = nil)
-    lbl ||= svg_trash_fill + ' Delete'
+    lbl ||= svg_trash_fill
     opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
     #FIXED data-confirm does not work in bs5!
     #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
     opt[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
     button_to(lbl, url, opt)
-  end  
+  end
 
   def filter_button(lbl = nil)
     lbl ||= 'Filter'
@@ -183,7 +183,7 @@ module FormHelper
   def blank_space
     content_tag(:div, '&nbsp;'.html_safe)
   end
-  
+
   #-------------------------------------------------------------------------
   # recaptcha fields https://console.cloud.google.com/security/recaptcha
   # style: "transform:scale(0.77);-webkit-transform:scale(0.70);transform-origin:0 0;-webkit-transform-origin:0 0;"
@@ -259,7 +259,7 @@ module FormHelper
 
   def required_date_field(rec, fld, opt = {})
     opt[:required] ||= true
-    std_date_field(rec, fld, opt)  
+    std_date_field(rec, fld, opt)
   end
 
   def std_number_field(rec, fld, opt = {})
@@ -270,7 +270,7 @@ module FormHelper
 
   def required_number_field(rec, fld, opt = {})
     opt[:required] ||= true
-    std_number_field(rec, fld, opt) 
+    std_number_field(rec, fld, opt)
   end
 
   def std_text_field(rec, fld, opt = {})
@@ -280,7 +280,7 @@ module FormHelper
 
   def required_text_field(rec, fld, opt = {})
     opt[:required] ||= true
-    std_text_field(rec, fld, opt)  
+    std_text_field(rec, fld, opt)
   end
 
   def readonly_text_field(rec, fld, opt = {})
@@ -293,7 +293,7 @@ module FormHelper
     opt[:class] ||= 'form-control-plaintext'
     opt[:size] ||= 100
     std_text_field(rec, fld, opt)
-  end  
+  end
 
   def required_password_field(rec, fld, opt = {})
     opt[:required] ||= true
@@ -304,13 +304,13 @@ module FormHelper
   def std_email_field(rec, fld, opt = {})
     opt[:class] ||= 'form-control'
     opt[:placeholder] ||= 'email@example.com'
-    email_field(rec, fld, opt)    
+    email_field(rec, fld, opt)
   end
 
   def required_email_field(rec, fld, opt = {})
     opt[:required] ||= true
     opt[:size] ||= 30
-    std_email_field(rec, fld, opt)    
+    std_email_field(rec, fld, opt)
   end
 
   #-------------------------------------------------------------------------
@@ -336,7 +336,7 @@ module FormHelper
   # tables
   def row_col_form(arr)
     out = arr.collect do |row|
-      content_tag(:div, class: 'form-row mx-1') do 
+      content_tag(:div, class: 'form-row mx-1') do
         #safe_join(row.collect {|cell| content_tag(:div, cell, class: 'col')})
         safe_join(row)
       end
@@ -346,13 +346,13 @@ module FormHelper
   #-------------------------------------------------------------------------
   def field_row(row)
     out = row.collect{|cell| content_tag(:div, cell, class: 'col')}
-    content_tag(:div, safe_join(out), class: 'form-row')  
+    content_tag(:div, safe_join(out), class: 'form-row')
   end
   #-------------------------------------------------------------------------
   def input_table_form body = nil, &block
     body = get_content_body_or_block(body, &block)
-    content_tag(:div, class: 'form-group mb-2') do 
-      content_tag(:table, class: 'table table-borderless') do 
+    content_tag(:div, class: 'form-group mb-2') do
+      content_tag(:table, class: 'table table-borderless') do
         content_tag(:tbody, body)
       end
     end
@@ -360,7 +360,7 @@ module FormHelper
   #-------------------------------------------------------------------------
   def page_caption(str)
     data_table_caption str
-  end  
+  end
   #-------------------------------------------------------------------------
   def case_caption(str)
     s =  content_tag(:div, content_tag(:h4, str,  class: 'font-weight-bold text-info text-nowrap '), class: 'col-8 mt-2')
@@ -402,7 +402,7 @@ module FormHelper
       end
       safe_join(a)
     end
-  end  
+  end
   #-------------------------------------------------------------------------
   def labeled_data_row(lbl, data)
     content_tag(:tr) do
@@ -424,11 +424,11 @@ module FormHelper
   #-------------------------------------------------------------------------
   def empty_row(str)
     content_tag(:tr) { content_tag(:td, content_tag(:em, str), colspan: 99) }
-  end  
+  end
   #-------------------------------------------------------------------------
   def table_row(str)
     content_tag(:tr, str)
-  end  
+  end
   #-------------------------------------------------------------------------
   def input_table_row(lbl, str)
     table_row(input_table_pair(lbl, str))

@@ -2,9 +2,11 @@
 <%=
   data_table('People', data_item_row(%w(last_name first_name dob birth_year).map(&:titlecase))) do |s|
     membership.people.each do |person|
-      s << field_label_row([person.last_name, person.first_name, person.dob, person.birth_year, person_actions(person)])
+      s << field_label_row([person_actions(person), person.last_name, person.first_name, person.dob, person.birth_year])
     end
-    s << labeled_data_row('', add_button('Add Person', new_person_path(membership_id: @membership.id)))
+    s << field_label_row([
+      edit_button('Add New Person', new_person_path(membership_id: @membership.id))
+    ])
   end
 %>
 
@@ -22,6 +24,11 @@
 %>
   
 <%=
-
+  data_table('Invoices', data_item_row(%w(status posted_date due_date balance_due).map(&:titlecase))) do |s|
+    membership.invoices.each do |invoice|
+      s << field_label_row([invoice_actions(invoice), invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
+    end
+    s << field_label_row([ edit_button('Add New Invoice', new_invoice_path(membership_id: @membership.id))])
+  end
 %>
 </div>
