@@ -165,11 +165,15 @@ module FormHelper
   end
 
   def button_toolbar_div(body = nil, &block)
-    div("btn-toolbar mt-2 mb-2", get_content_body_or_block(body, &block))
+    div("row g-3 align-items-center my-3",
+      div("col-auto", 
+        div("btn-toolbar", get_content_body_or_block(body, &block))
+        )
+      )
   end
 
   def button_group_div(body = nil, &block)
-    div("btn-toolbar btn-group-sm", get_content_body_or_block(body, &block))
+    div("btn-group", get_content_body_or_block(body, &block))
   end
 
   def navbar_button_group(body = nil, &block)
@@ -315,6 +319,36 @@ module FormHelper
   end
 
   #-------------------------------------------------------------------------
+  # inline input fields
+  def labeled_text_field(lbl, rec, fld, size = nil)
+    content_tag(:div, class: 'col-auto') {inline_field_label(lbl) + inline_field_tag(rec, fld, nil, size) }
+  end
+
+  def labeled_date_field(lbl, rec, fld, size = nil)
+    content_tag(:div, class: 'col-auto') {inline_field_label(lbl) + inline_field_tag(rec, fld, nil, size, type: 'date') }
+  end
+
+  def labeled_select_field(lbl, rec, fld, choices = nil, sopts = {}, hopts = {})    
+    content_tag(:div, class: 'col-auto') {inline_field_label(lbl) + inline_select_field(rec, fld, choices, sopts, hopts) }
+  end
+
+  def inline_select_field(rec, fld, choices = nil, sopts = {}, hopts = {})
+    hopts[:required] ||= true
+    hopts[:class] = 'form-control mr-sm-2'
+    std_select_field(rec, fld, choices, sopts, hopts)        
+  end
+
+  def inline_field_label(str)
+    content_tag(:small, str, class: "form-text text-muted")
+  end
+
+  def inline_field_tag(rec, fld, hint = nil, size = nil, opt = {})
+    opt[:class] = 'form-control mr-sm-2'
+    opt[:placeholder] = hint unless hint.nil?
+    opt[:size] = size.to_i unless size.nil?
+    std_text_field(rec, fld, opt)
+  end  
+  #-------------------------------------------------------------------------
   # cell formatting
   def bold_item(str)
     [str, class: 'fw-bold']
@@ -337,7 +371,7 @@ module FormHelper
   # tables
   def row_col_form(arr)
     out = arr.collect do |row|
-      content_tag(:div, class: 'form-row mx-1') do
+      content_tag(:div, class: 'row g-3 align-items-center') do
         #safe_join(row.collect {|cell| content_tag(:div, cell, class: 'col')})
         safe_join(row)
       end
@@ -346,7 +380,7 @@ module FormHelper
   end
   #-------------------------------------------------------------------------
   def field_row(row)
-    out = row.collect{|cell| content_tag(:div, cell, class: 'col')}
+    out = row.collect{|cell| content_tag(:div, cell, class: 'col-auto')}
     content_tag(:div, safe_join(out), class: 'form-row')
   end
   #-------------------------------------------------------------------------

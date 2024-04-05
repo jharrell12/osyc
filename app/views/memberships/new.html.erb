@@ -1,3 +1,58 @@
 <%= page_caption "Enter New Member Info" %>
 
-<%= render "form", membership: @membership, path: memberships_path, submit_text: 'Next' %>
+<% render "form", membership: @membership, path: memberships_path, submit_text: 'Next' %>
+
+<hr>
+
+<%= 
+  	inline_form(memberships_path) do |s|
+  	  s << 	row_col_form(
+  	  	[
+  	  		[
+				labeled_select_field('Status', :membership, :status, Membership.status_options_for_select),
+				labeled_date_field('Joined', :membership, :start_date),
+			],
+
+			[
+				content_tag(:div, '1', class: 'col-auto'),
+				labeled_text_field('Last Name', 'people[0]', :last_name, 25),
+				labeled_text_field('First Name', 'people[0]', :first_name, 25),
+				labeled_date_field('DOB', 'people[0]', :dob),
+			],
+			[
+				content_tag(:div, '', class: 'col-auto mx-3'),
+				labeled_text_field('Cell', 'phones[0]', :number, 10),
+				labeled_text_field('Email', 'emails[0]', :address, 40),
+			],
+
+			[
+				content_tag(:div, '2', class: 'col-auto'),
+				labeled_text_field('Last Name 2', 'people[1]', :last_name, 25),
+				labeled_text_field('First Name', 'people[1]', :first_name, 25),
+				labeled_date_field('DOB', 'people[1]', :dob),
+			],	
+			[
+				content_tag(:div, '', class: 'col-auto mx-3'),
+				labeled_text_field('Cell', 'phones[1]', :number, 10),
+				labeled_text_field('Email', 'emails[1]', :address, 40),
+			],
+
+			[
+				labeled_text_field('Mailing Address', :address, :street, 50),
+			],	
+			[
+				labeled_text_field('City', :address, :city, 30),
+				labeled_text_field('State', :address, :state, 3),
+				labeled_text_field('Zip', :address, :zipcode, 10),
+			],			
+
+			[labeled_text_field('Children', :membership, :children, 40)],
+			[labeled_text_field('Boats', :membership, :boats, 40) ],
+
+
+			[submit_and_cancel_buttons('Save', 'Cancel', memberships_path)],
+		])
+  	end  
+%>
+
+

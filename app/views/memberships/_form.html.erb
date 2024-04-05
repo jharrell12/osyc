@@ -3,7 +3,7 @@
 input_form(path) do |f|
   f << error_messages_for(:membership)
   f << input_table_form do |s|
-    s << input_table_row('Role',       required_select_field(:membership, :status, Membership.status_options_for_select, {}, autofocus: true) )
+    s << input_table_row('Status',       required_select_field(:membership, :status, Membership.status_options_for_select, {}, autofocus: true) )
     s << input_table_row('Start Date', required_date_field(:membership, :start_date) )
     s << input_table_row('Boats',      std_text_field(:membership, :boats) )
     s << input_table_row('Slip',       std_text_field(:membership, :slip_assignment) )

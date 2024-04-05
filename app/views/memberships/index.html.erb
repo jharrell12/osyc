@@ -32,7 +32,7 @@
           member.id,
           member.status.titleize,
           member.start_date,
-          (people.count > 1) ? first_name + ' + ' + (people.count - 1).to_s : first_name,
+          member.names,
           member.boats,
           member.slip_assignment,
           member.children,

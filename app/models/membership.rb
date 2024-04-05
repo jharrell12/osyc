@@ -11,7 +11,8 @@ class Membership < ApplicationRecord
   has_many :charges, through: :invoices
   has_many :payments, through: :invoices
 
-
+  attribute :start_date, default: -> { Date.today }
+  attribute :status, default: -> { VALID_STATUSES.first }
 
   truncate_strings :status, :boats, :slip_assignment, :children
   strip_strings :status, :boats, :slip_assignment, :children
@@ -30,11 +31,12 @@ class Membership < ApplicationRecord
   def self.status_options_for_select
     VALID_STATUSES
   end
-  #--------------------------------------------------------------
-  def initialize(vals = nil)
-    vals ||= Hash.new
-    vals[:start_date] ||= Date.today
-    vals[:status] ||= VALID_STATUSES.first
-    super(vals)
+
+  def names
+    if people.collect(&:last_name).uniq.size == 1
+      [people.map(&:first_name).join(' & '), people.first.last_name].join(' ')
+    else
+      people.collect{|person| person.full_name}.join(' and ')
+    end
   end
 end
