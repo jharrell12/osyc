@@ -12,8 +12,8 @@ class PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new
-    @person.membership_id = params[:membership_id]
+    @person = Person.new(membership_id: params[:membership_id])
+#binding.break
   end
 
   # GET /people/1/edit
@@ -27,7 +27,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         if params[:add_another]
-          format.html { redirect_to new_person_path(membership_id: @person.membership_id), notice: "Person was successfully added." }
+          format.html { redirect_to new_person_path(membership_id: @person.membership_id), notice: "Person was successfully added. Add Another." }
         else
           format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully added." }
         end
@@ -43,7 +43,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to person_url(@person), notice: "Person was successfully updated." }
+        format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit, status: :unprocessable_entity }

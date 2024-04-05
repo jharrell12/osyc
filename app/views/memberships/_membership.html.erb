@@ -5,7 +5,7 @@
       s << field_label_row([person_actions(person), person.last_name, person.first_name, person.dob, person.birth_year])
     end
     s << field_label_row([
-      edit_button('Add New Person', new_person_path(membership_id: @membership.id))
+      edit_link_button('Add New Person', new_person_path(membership_id: @membership.id))
     ])
   end
 %>

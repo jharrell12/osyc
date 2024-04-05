@@ -93,6 +93,13 @@ module FormHelper
     button_to(lbl, url, opts)
   end
 
+  def edit_link_button(lbl, url, opts = {})
+    lbl ||= svg_pencil_fill
+    opts[:method] = :get
+    opts[:class] = 'btn py-0 btn-outline-success mx-2'
+    link_to(lbl, url, opts)
+  end  
+
   def delete_button(lbl, url, confirm = nil)
     lbl ||= svg_trash_fill
     opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
