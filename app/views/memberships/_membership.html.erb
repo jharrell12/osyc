@@ -28,7 +28,7 @@
 <div>
 <%=
   caption = data_table_caption('Invoices', add_button('New Invoice', new_invoice_path(membership_id: @membership.id)))
-  headers = data_item_row(%w(status posted_date due_date balance_due).map(&:titlecase))
+  headers = data_item_row(%w(action status posted_date due_date balance_due).map(&:titlecase))
   data_table(caption, headers) do |s|
     membership.invoices.each do |invoice|
       s << field_label_row([invoice_actions(invoice), invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
