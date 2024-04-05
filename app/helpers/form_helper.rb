@@ -80,9 +80,10 @@ module FormHelper
   end
 
   def show_button(lbl, url, opts = {})
-    lbl ||= svg_pencil_fill
+    lbl ||= svg_show
+    opts[:method] = :get
     opts[:class] = 'btn py-0 btn-outline-info mx-1'
-    link_to(lbl, url, opts)
+    button_to(lbl, url, opts)
   end
 
   def edit_button(lbl, url, opts = {})

@@ -131,7 +131,7 @@ class NilClass
   def size; 0; end
   def empty?; true; end
 
-  def id()
-    raise(ArgumentError, "You have a nil where you didn't expect it: nil.id")
-  end  
+  # def id()
+  #   raise(ArgumentError, "You have a nil where you didn't expect it: nil.id")
+  # end  
 end
