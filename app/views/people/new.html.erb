@@ -1,4 +1,3 @@
 <%= page_caption "Add Person to Membership" %>
 
-<%= render "form", person: @person, path: people_path, cancel_path: membership_path(@person.membership_id), 
-submit_text: 'Done', new_entry: true %>
+<%= render "form", person: @person, path: people_path(membership_id: @membership), cancel_path: membership_path(@person.membership_id) %>

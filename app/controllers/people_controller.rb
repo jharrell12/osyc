@@ -12,8 +12,8 @@ class PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new(membership_id: params[:membership_id])
-#binding.break
+    @membership = Membership.find(params[:membership_id])
+    @person = @membership.people.build #Person.new(membership_id: params[:membership_id])
   end
 
   # GET /people/1/edit
@@ -26,11 +26,12 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        if params[:add_another]
-          format.html { redirect_to new_person_path(membership_id: @person.membership_id), notice: "Person was successfully added. Add Another." }
-        else
-          format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully added." }
-        end
+        # if params[:add_another]
+        #   format.html { redirect_to new_person_path(membership_id: @person.membership_id), notice: "Person was successfully added. Add Another." }
+        # else
+        #   format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully added." }
+        # end
+        format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully added." }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -57,7 +58,7 @@ class PeopleController < ApplicationController
     @person.destroy!
 
     respond_to do |format|
-      format.html { redirect_to people_url, notice: "Person was successfully destroyed." }
+      format.html { redirect_to membership_url(@person.membership_id), notice: "Person was successfully deleted." }
       format.json { head :no_content }
     end
   end

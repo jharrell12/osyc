@@ -3,13 +3,12 @@
 input_form(path) do |f|
   f << error_messages_for(:person)
   f << input_table_form do |s|
-    s << input_table_row('Member ID', required_number_field(:person, :membership_id, readonly: new_entry))
+    s << input_table_row('Member ID', required_number_field(:person, :membership_id, readonly: @person.membership_id.present?))
     s << input_table_row('First Name', required_text_field(:person, :first_name))
     s << input_table_row('Last Name', required_text_field(:person, :last_name))
     s << input_table_row('DoB', std_date_field(:person, :dob))
     s << input_table_row('Birth Year', std_number_field(:person, :birth_year))
-    new_entry ? s << input_table_row('', submit_button_tag('Add Another', :add_another)) : ''
-    s << input_table_row('', submit_and_cancel_buttons(submit_text, 'Cancel', cancel_path) )
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', cancel_path) )
     s << input_table_row('', loading_spinner)
   end
 end

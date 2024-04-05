@@ -16,7 +16,7 @@
 
 <%=
   caption = data_table_caption('', button_group_div(add_button((svg_person_plus + "New Member"))) )
-  header = field_label_row(['', '#', 'Status','Start','Names','Boats','Slip','Children','Resigned', updated_lbl, ''])
+  header = field_label_row(['', '#', 'Status','Start','Names','Phones', 'Emails', 'Boats','Slip','Children', ''])
   data_table(caption, header) do |s|
     if @memberships.empty?
       flash[:notice] = 'No matching members found.'
@@ -33,11 +33,11 @@
           member.status.titleize,
           member.start_date,
           member.names,
+          safe_join(member.active_phones_strs, '<br>'.html_safe),
+          safe_join(member.active_emails_strs, '<br>'.html_safe),
           member.boats,
           member.slip_assignment,
           member.children,
-          member.end_date,
-          updated_by_col(member),
           delete_button(nil, membership_path(member), "Member #{member.id}"),
         ])
       end

@@ -18,4 +18,14 @@ module MembershipsHelper
     link_to('Back to Member List', memberships_path, class: 'btn btn-outline-danger mx-1')
   end
 
+  def phones_links(person)
+    safe_join([safe_join(person.phones.collect{|phone| link_to(phone.phone_str, edit_phone_path(phone))}, '<br>'.html_safe),
+     link_to(svg_plus, new_phone_path(person_id: person))].compact, '  '.to_nb)
+  end
+
+  def emails_links(person)
+    safe_join([safe_join(person.emails.collect{|email| link_to(email.address, edit_email_path(email))}, '<br>'.html_safe),
+      link_to(svg_plus, new_email_path(person_id: person))].compact, '  '.to_nb)
+  end  
+
 end

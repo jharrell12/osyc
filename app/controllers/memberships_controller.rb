@@ -46,8 +46,6 @@ class MembershipsController < ApplicationController
       person.phones.build(new_phone_params(1).merge(label: :cell)) if new_phone_params(1).values.any?(&:present?)
     end
 
-    #binding.break
-
     respond_to do |format|
       if @membership.errors.empty? && @membership.save
         #format.html { redirect_to new_person_path(membership_id: @membership.id), notice: "Membership was successfully created." }

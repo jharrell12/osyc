@@ -6,14 +6,17 @@ class Phone < ApplicationRecord
   validates_presence_of :label
   validates_presence_of :number
 
-  before_save :format_phone_number
+  #before_save :number_str
+  normalizes :number, with: -> { _1.format_phone_number }
   
-  def format_phone_number
-    if (digits = number.scan(/\d+/).join).size == 10 && !(number =~ /[A-Z]|[a-z]/)
-      number = "#{digits[0,3]}-#{digits[3,3]}-#{digits[6,4]}"
-    else
-      number
-    end  
+  scope :current,         -> { where("(end_date is null) OR DATE(end_date) >= DATE('now')") }
+
+  def number_str
+    number.format_phone_number 
+  end
+
+  def phone_str
+    [label, number_str].join(': ')
   end
 
 end

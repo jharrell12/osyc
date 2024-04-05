@@ -10,7 +10,7 @@ module FormHelper
 
   def std_form(url = nil, opt = {}, &block)
     #url = url[:url] if url.is_a?(Hash) && url[:url]
-    opt[:method] ||= :put if params[:action] == 'edit'
+    opt[:method] ||= :put if %w(edit update).include?(params[:action])
     opt[:method] ||= :post if params[:action] == 'new'
     opt[:method] ||= :delete if params[:action] == 'delete'
     opt[:method] ||= :post
@@ -29,14 +29,6 @@ module FormHelper
     opt[:class] ||= 'form-inline'
     std_form(url, opt, &block)
   end
-
-  # def start_form_remote_tag(action, method = 'POST', target = '', target_message = '')
-  #   form_tag(action, method: method, remote: true, autocomplete: 'off', class: 'remote-form', data: { target: target, target_message: target_message })
-  # end
-  #
-  # def submit_form_remote_tag name, caption, url, options = {}
-  #   submit_tag(caption, { name: name, type: 'button', class: 'remote-submit-form', data: { url: url } }.deep_merge(options))
-  # end
 
   #-------------------------------------------------------------------------
   # Button formats

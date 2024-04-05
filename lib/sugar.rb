@@ -54,6 +54,14 @@ class String
   def commify
     (s=self.to_s;x=s.length;s).rjust(x+(3-(x%3))).gsub(/(\d)(?=\d{3}+(\.\d*)?$)/, '\1,').strip
   end
+
+  def format_phone_number
+    if (digits = self.scan(/\d+/).join).size == 10 && !(self =~ /[A-Z]|[a-z]/)
+      "#{digits[0,3]}-#{digits[3,3]}-#{digits[6,4]}"
+    else
+      self
+    end  
+  end  
   
   def self.checkmark
      "\u2713"

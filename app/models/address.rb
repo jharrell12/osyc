@@ -7,4 +7,7 @@ class Address < ApplicationRecord
 
   normalizes :street, with: -> { _1.strip.titleize }
   normalizes :city, with: -> { _1.strip.titleize }
+
+  scope :current,         -> { where("(end_date is null) OR DATE(end_date) >= DATE('now')") }
+
 end
