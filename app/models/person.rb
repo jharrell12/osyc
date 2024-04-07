@@ -1,8 +1,8 @@
 class Person < ApplicationRecord
   belongs_to :membership
-  has_many :emails, dependent: :destroy
-  has_many :phones, dependent: :destroy
-  has_many :addresses, dependent: :destroy
+  has_many :emails, -> { order(end_date: :asc, label: :asc, start_date: :desc) }, dependent: :destroy
+  has_many :phones, -> { order(end_date: :asc, label: :asc, start_date: :desc) }, dependent: :destroy
+  has_many :addresses, -> { order(end_date: :asc, label: :asc, start_date: :desc) }, dependent: :destroy
 
   validates_presence_of :last_name
   normalizes :last_name, with: -> { _1.strip.titleize }

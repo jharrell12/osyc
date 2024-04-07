@@ -101,6 +101,15 @@ module FormHelper
     button_to(lbl, url, opt)
   end
 
+  def delete_link(lbl, url, confirm = nil)
+    lbl ||= svg_trash_fill
+    opt = {class: 'btn btn-link text-danger p-0 border-0 align-baseline', method: :delete}
+    #FIXED data-confirm does not work in bs5!
+    #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
+    opt[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
+    button_group_div(button_to(lbl, url, opt))
+  end  
+
   def filter_button(lbl = nil)
     lbl ||= 'Filter'
     button_tag(lbl, class: 'btn btn-info ml-4 mr-1 mt-4')

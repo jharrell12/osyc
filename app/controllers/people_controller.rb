@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @membership = Membership.find(params[:membership_id])
-    @person = @membership.people.build #Person.new(membership_id: params[:membership_id])
+    @person = @membership.people.build 
   end
 
   # GET /people/1/edit

@@ -9,7 +9,9 @@ class Email < ApplicationRecord
   validates_presence_of :label
   validates_presence_of :address
   validates_format_of :address, with: URI::MailTo::EMAIL_REGEXP
+  
   normalizes :address, with: -> { _1.strip.downcase }
+  normalizes :label, with: -> { _1.strip.titleize }
 
   scope :current,         -> { where("(end_date is null) OR DATE(end_date) >= DATE('now')") }
 

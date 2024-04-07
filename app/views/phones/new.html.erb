@@ -1,9 +1,4 @@
-<h1>New phone</h1>
+<%= page_caption "Add Phone Number for #{@phone.person&.full_name}" %>
 
-<%= render "form", phone: @phone %>
+<%= render "form", phone: @phone, path: phones_path(person_id: @phone.person_id), cancel_path: membership_path(@phone.person.membership_id) %>
 
-<br>
-
-<div>
-  <%= link_to "Back to phones", phones_path %>
-</div>

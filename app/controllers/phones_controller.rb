@@ -12,7 +12,8 @@ class PhonesController < ApplicationController
 
   # GET /phones/new
   def new
-    @phone = Phone.new
+    @person = Person.find(params[:person_id])
+    @phone = @person.phones.build
   end
 
   # GET /phones/1/edit
@@ -21,11 +22,12 @@ class PhonesController < ApplicationController
 
   # POST /phones or /phones.json
   def create
-    @phone = Phone.new(phone_params)
+    @person = Person.find(params[:person_id])
+    @phone = @person.phones.build(phone_params)
 
     respond_to do |format|
       if @phone.save
-        format.html { redirect_to phone_url(@phone), notice: "Phone was successfully created." }
+        format.html { redirect_to membership_url(@phone.person.membership), notice: "Phone Number was successfully created." }
         format.json { render :show, status: :created, location: @phone }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class PhonesController < ApplicationController
   def update
     respond_to do |format|
       if @phone.update(phone_params)
-        format.html { redirect_to phone_url(@phone), notice: "Phone was successfully updated." }
+        format.html { redirect_to membership_url(@phone.person.membership), notice: "Phone Number was successfully updated." }
         format.json { render :show, status: :ok, location: @phone }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +51,12 @@ class PhonesController < ApplicationController
 
   # DELETE /phones/1 or /phones/1.json
   def destroy
-    @phone.destroy!
+    @membership = @phone.person.membership
+    #@phone.destroy!
+    @phone.update!(end_date: Date.today)
 
     respond_to do |format|
-      format.html { redirect_to phones_url, notice: "Phone was successfully destroyed." }
+      format.html { redirect_to membership_url(@membership), notice: "Phone Number was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +69,6 @@ class PhonesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def phone_params
-      params.require(:phone).permit(:person_id, :start_date, :end_date, :label, :number)
+      params.require(:phone).permit(:start_date, :end_date, :label, :number)
     end
 end
