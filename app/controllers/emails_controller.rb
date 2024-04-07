@@ -12,7 +12,8 @@ class EmailsController < ApplicationController
 
   # GET /emails/new
   def new
-    @email = Email.new
+    @person = Person.find(params[:person_id])
+    @email = @person.emails.build
   end
 
   # GET /emails/1/edit
@@ -21,11 +22,12 @@ class EmailsController < ApplicationController
 
   # POST /emails or /emails.json
   def create
-    @email = Email.new(email_params)
+    @person = Person.find(params[:person_id])
+    @email = @person.emails.build(email_params)  
 
     respond_to do |format|
       if @email.save
-        format.html { redirect_to email_url(@email), notice: "Email was successfully created." }
+        format.html { redirect_to membership_url(@email.person.membership), notice: "Email address was successfully created." }
         format.json { render :show, status: :created, location: @email }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class EmailsController < ApplicationController
   def update
     respond_to do |format|
       if @email.update(email_params)
-        format.html { redirect_to email_url(@email), notice: "Email was successfully updated." }
+        format.html { redirect_to membership_url(@email.person.membership), notice: "Email address was successfully updated." }
         format.json { render :show, status: :ok, location: @email }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +51,12 @@ class EmailsController < ApplicationController
 
   # DELETE /emails/1 or /emails/1.json
   def destroy
-    @email.destroy!
+    @membership = @email.person.membership
+    #@email.destroy!
+    @email.update!(end_date: Date.today)    
 
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: "Email was successfully destroyed." }
+      format.html { redirect_to membership_url(@email.person.membership), notice: "Email address was deactivated." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +69,6 @@ class EmailsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def email_params
-      params.require(:email).permit(:person_id, :start_date, :end_date, :label, :address)
+      params.require(:email).permit(:start_date, :end_date, :label, :address)
     end
 end

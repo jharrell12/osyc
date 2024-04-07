@@ -71,6 +71,12 @@ module FormHelper
     link_to(lbl, url, opts)
   end
 
+  def add_link(lbl, url, opts = {})
+    lbl ||= svg_plus
+    opts[:class] = 'text-success'
+    link_to(lbl, url, opts)
+  end 
+  
   def show_button(lbl, url, opts = {})
     lbl ||= svg_show
     opts[:method] = :get
@@ -90,7 +96,13 @@ module FormHelper
     opts[:method] = :get
     opts[:class] = 'btn py-0 btn-outline-success mx-2'
     link_to(lbl, url, opts)
-  end  
+  end
+
+  def edit_link(lbl, url, opts = {})
+    lbl ||= svg_pencil
+    opts[:class] = 'text-success'
+    link_to(lbl, url, opts)
+  end 
 
   def delete_button(lbl, url, confirm = nil)
     lbl ||= svg_trash_fill

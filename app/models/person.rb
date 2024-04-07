@@ -8,6 +8,9 @@ class Person < ApplicationRecord
   normalizes :last_name, with: -> { _1.strip.titleize }
   normalizes :first_name, with: -> { _1.strip.titleize }
 
+  truncate_strings :last_name, :first_name
+  strip_strings :last_name, :first_name  
+
   validates :dob, comparison: { greater_than: '1900-01-01'.to_date, less_than_or_equal_to: Date.today }, allow_blank: true
   validates :birth_year, comparison: { greater_than: 1900, less_than_or_equal_to: Date.today.year}, allow_blank: true
 

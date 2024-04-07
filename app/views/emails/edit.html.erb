@@ -1,10 +1,3 @@
-<h1>Editing email</h1>
+<%= page_caption "Edit Email Address for #{@email.person.full_name}" %>
 
-<%= render "form", email: @email %>
-
-<br>
-
-<div>
-  <%= link_to "Show this email", @email %> |
-  <%= link_to "Back to emails", emails_path %>
-</div>
+<%= render "form", email: @email, path: email_path(@email) %>

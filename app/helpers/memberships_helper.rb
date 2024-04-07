@@ -28,8 +28,9 @@ module MembershipsHelper
   end  
 
   def phone_link(phone)
-    #safe_join([link_to(svg_pencil, edit_phone_path(phone), class: 'text-success'), link_to(phone_str(phone),edit_phone_path(phone))], ' '.to_nb)
-    link_to(phone_str(phone),edit_phone_path(phone), class:  'text-decoration-none')
+    #link_to(phone_str(phone),edit_phone_path(phone), class:  'text-decoration-none')
+    #safe_join([edit_link(nil, edit_phone_path(phone)), link_to(phone_str(phone),edit_phone_path(phone), class:  'text-decoration-none')], ' '.to_nb)
+    safe_join([edit_link(nil, edit_phone_path(phone)), phone_str(phone)], ' '.to_nb)
   end
 
   def phone_links(person)
@@ -37,7 +38,7 @@ module MembershipsHelper
   end
 
   def phones_links(person)
-    safe_join(phone_links(person) << link_to(svg_phone_plus, new_phone_path(person_id: person), class: 'text-success'), '<br>'.html_safe)
+    safe_join(phone_links(person) << add_link(svg_phone_plus, new_phone_path(person_id: person)), '<br>'.html_safe)
   end
 
 
@@ -46,7 +47,9 @@ module MembershipsHelper
   end
 
   def email_link(email)
-    link_to(email_str(email), edit_email_path(email))
+    #link_to(email_str(email), edit_email_path(email))
+    #safe_join([link_to(svg_pencil, edit_email_path(email), class: 'text-success'), link_to(email_str(email),edit_email_path(email))], ' '.to_nb)
+    safe_join([edit_link(nil, edit_email_path(email)), email_str(email)], ' '.to_nb)
   end
 
   def collect_email_links(person)
@@ -54,7 +57,7 @@ module MembershipsHelper
   end
 
   def emails_links(person)
-    safe_join(collect_email_links(person) << link_to(svg_email_plus, new_email_path(person_id: person), class: 'text-success'), '<br>'.html_safe)
+    safe_join(collect_email_links(person) << add_link(svg_email_plus, new_email_path(person_id: person)), '<br>'.html_safe)
     
   end  
 

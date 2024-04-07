@@ -1,42 +1,15 @@
-<%= form_with(model: email) do |form| %>
-  <% if email.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(email.errors.count, "error") %> prohibited this email from being saved:</h2>
 
-      <ul>
-        <% email.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= 
+input_form(path) do |f|
+  f << error_messages_for(:email)
+  f << input_table_form do |s|
+    s << input_table_row('Label', required_text_field(:email, :label))
+    s << input_table_row('Email Address', required_text_field(:email, :address))
+    s << input_table_row('End Date', std_date_field(:email, :end_date)) if email.end_date.present?
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', membership_path(email.person.membership)))
+    s << input_table_row('', loading_spinner)
+  end
+end
+%>
 
-  <div>
-    <%= form.label :person_id, style: "display: block" %>
-    <%= form.text_field :person_id %>
-  </div>
-
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-    <%= form.label :label, style: "display: block" %>
-    <%= form.text_field :label %>
-  </div>
-
-  <div>
-    <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= delete_button('Deactivate', email, "this email address") unless email.new_record? || email.end_date.present? %>
