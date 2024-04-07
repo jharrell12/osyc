@@ -22,7 +22,5 @@ class Phone < ApplicationRecord
     [label, number_str].join(': ')
   end
 
-  def current?
-    end_date.nil? #|| end_date <= Date.today
-  end
+  def current? = end_date.nil? || end_date > Date.today
 end

@@ -1,7 +1,16 @@
+<%=
+  caption = data_table_caption('People', button_group_div(add_button((svg_person_plus), new_person_path(membership_id: @membership.id))) )
+  data_table(caption, data_item_row(%w(action last_name first_name dob phone email).map(&:titlecase))) do |s|
+    membership.people.each do |person|
+      s << field_label_row([person_actions(person), person.last_name, person.first_name, person.dob, phones_links(person), emails_links(person)])
+    end
+  end
+%>
+
 <div id="<%= dom_id membership %>">
   <%=
   #caption = data_table_caption('Membership', member_actions(membership).first)
-  caption = data_table_caption('Membership', nil)
+  caption = data_table_caption('Info', nil)
   data_table(caption, nil) do |s|
     s << labeled_data_row('Status', membership.status.titleize)
     s << labeled_data_row('Start Date', membership.start_date)
@@ -14,16 +23,6 @@
   end
 %>
 </div>
-
-<%=
-  caption = data_table_caption('People', button_group_div(add_button((svg_person_plus), new_person_path(membership_id: @membership.id))) )
-  data_table(caption, data_item_row(%w(action last_name first_name dob phone email).map(&:titlecase))) do |s|
-    membership.people.each do |person|
-      s << field_label_row([person_actions(person), person.last_name, person.first_name, person.dob, phones_links(person), emails_links(person)])
-    end
-  end
-%>
-
 
 <div>
 <%=

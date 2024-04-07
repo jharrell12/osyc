@@ -41,12 +41,12 @@ module MembershipsHelper
   end
 
 
+  def email_str(email)
+    email.current? ? email.address : content_tag(:del, email.address, class: 'fw-light fst-italic')
+  end
+
   def email_link(email)
-    safe_join([
-      svg_pencil, 
-      svg_x, 
-      link_to(email.address, edit_email_path(email))
-    ], '  '.to_nb)
+    link_to(email_str(email), edit_email_path(email))
   end
 
   def collect_email_links(person)

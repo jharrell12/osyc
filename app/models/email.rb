@@ -15,4 +15,6 @@ class Email < ApplicationRecord
 
   scope :current,         -> { where("(end_date is null) OR DATE(end_date) >= DATE('now')") }
 
+  def current? = end_date.nil? || end_date > Date.today
+
 end
