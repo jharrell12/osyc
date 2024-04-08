@@ -1,4 +1,24 @@
-<%= page_caption "Membership: #{@membership.names}" %>
+<%=
+  content_tag(:div, class: 'col-8 mt-2') do 
+  	content_tag(:h2, class: 'text-dark text-nowrap') { @membership.names }
+  end
+%>
+<%=
+  content_tag(:div, class: 'col-4 mt-2') do 
+  	content_tag(:h4, class: 'text-success text-nowrap') { "#{@membership.status} for #{time_ago_in_words @membership.start_date}" }
+  end
+%>
+<%
+  content_tag(:div, class: 'col-4 mt-2') do 
+  	content_tag(:h5, class: 'text-success text-nowrap') { safe_join([content_tag(:span, "Children: ", class: 'text-muted'), "#{@membership.children}"]) }
+  end if @membership.children.present?
+%>
+<%=
+  content_tag(:div, class: 'col-4 mt-2') do 
+  	content_tag(:h5, class: 'text-success text-nowrap') { safe_join([content_tag(:span, "Boats: ", class: 'text-muted'), "#{@membership.boats}"]) }
+  end if @membership.boats.present?
+%>
+
 
 <%= render @membership %>
 <hr>

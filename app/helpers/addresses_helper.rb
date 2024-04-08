@@ -13,7 +13,7 @@ module AddressesHelper
   end
 
   def address_header
-    data_item_row(%w(action type for street city state zipcode).map(&:titlecase))
+    field_label_row(%w(action type for street city state zipcode).map(&:titlecase))
   end
 
   def address_row(addr)
@@ -27,7 +27,7 @@ module AddressesHelper
   def addresses_table(membership)
     data_table(address_caption(membership), address_header) do |s|
       membership.addresses.sorted.each do |addr|
-        s << field_label_row(address_row(addr))
+        s << data_item_row(address_row(addr))
       end
     end  
   end

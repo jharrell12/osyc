@@ -34,4 +34,19 @@ module MembershipsHelper
       end
     end    
   end
+
+  def member_info_table(membership)
+    #caption = data_table_caption('Info', member_actions(membership).first)
+    caption = data_table_caption('Info', nil)
+    data_table(caption, nil) do |s|
+      s << labeled_data_row('Status', membership.status.titleize)
+      s << labeled_data_row('as of', membership.start_date)
+      s << labeled_data_row('Boats', membership.boats)
+      s << labeled_data_row('Slip', membership.slip_assignment)
+      s << labeled_data_row('Children', membership.children)
+      s << labeled_data_row('End Date', membership.end_date)
+
+      s << labeled_data_row('', member_actions(membership))
+    end    
+  end
 end
