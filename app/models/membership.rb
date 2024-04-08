@@ -37,11 +37,19 @@ class Membership < ApplicationRecord
   end
 
   def active_emails_strs
-    people.map{|person| person.emails.current}.flatten.collect{|e| e.address.to_nb}
+    #people.map{|person| person.emails.current}.flatten.collect{|e| e.address.to_nb}
+    #emails.current.collect{|e| e.address.to_nb}
+
+    # refactored to avoid n+1 query on index page
+    emails.select{|e| e.current?}.collect{|e| e.address.to_nb}
   end
 
   def active_phones_strs
-    people.map{|person| person.phones.current}.flatten.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
+    #people.map{|person| person.phones.current}.flatten.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
+    #phones.current.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
+    
+    # refactored to avoid n+1 query on index page
+    phones.select{|p| p.current?}.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
   end
 
 end

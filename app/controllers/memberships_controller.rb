@@ -1,9 +1,11 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
+  #before_action :persist_search_params, only: :index
 
   # GET /memberships or /memberships.json
   def index
-    @memberships = Membership.includes(:people).all.order(:id)
+    @memberships = Membership.joins(:people).includes(:people, :emails, :phones).order(:id)
+    @memberships = @memberships.where("people.last_name like :name OR people.first_name like :name", name: params.dig(:search,:name).to_s + '%')
   end
 
   # GET /memberships/1 or /memberships/1.json
