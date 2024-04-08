@@ -25,7 +25,7 @@
       @memberships.each  do |member| 
 
         people = member.people
-        first_name = people.first.present? ? people.first.first_name : 'N/A'
+        first_name = people.first.present? ? people.first.first_name : '(none)'
 
         s << data_item_row([
           membership_actions(member),
