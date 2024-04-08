@@ -52,16 +52,7 @@ class PhonesController < ApplicationController
   # DELETE /phones/1 or /phones/1.json
   def destroy
     @membership = @phone.person.membership
-    if params[:operation] == 'destroy'
-      @phone.destroy!
-      msg = 'Phone Number was deleted'
-    elsif params[:operation] == 'reactivate'
-      @phone.update!(end_date: nil)    
-      msg = 'Phone Number was reactivated'
-    else
-      @phone.update!(end_date: Date.today)   
-      msg = 'Phone Number was deactivated' 
-    end    
+    msg = @phone.set_end_date(params[:operation])
 
     respond_to do |format|
       format.html { redirect_to membership_url(@membership), notice: msg }

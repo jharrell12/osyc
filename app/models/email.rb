@@ -1,6 +1,6 @@
 class Email < ApplicationRecord
   belongs_to :person
-  has_one :membership, through: :people
+  has_one :membership, through: :person
   include StartEndDates
 
   validates_presence_of :label

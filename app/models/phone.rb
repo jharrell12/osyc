@@ -1,7 +1,7 @@
 class Phone < ApplicationRecord
-  include StartEndDates
   belongs_to :person
-  has_one :membership, through: :people
+  has_one :membership, through: :person
+  include StartEndDates
   
   validates_presence_of :label
   validates_presence_of :number

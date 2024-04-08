@@ -1,8 +1,8 @@
 class Membership < ApplicationRecord
   has_many :people, dependent: :destroy
-  has_many :emails, through: :people
-  has_many :phones, through: :people
-  has_many :addresses, through: :people
+  has_many :emails, -> { sorted }, through: :people
+  has_many :phones, -> { sorted }, through: :people
+  has_many :addresses, -> { sorted }, through: :people
 
   has_many :invoices, dependent: :destroy
   has_many :charges, through: :invoices
@@ -16,7 +16,7 @@ class Membership < ApplicationRecord
 
   validate :validate_status
 
-  VALID_STATUSES = %w(new applied posted accepted active inactive resigned deleted).map(&:titleize)
+  VALID_STATUSES = %w(inquiry applied posted accepted active inactive resigned deleted).map(&:titleize)
 
   def validate_status
     if !VALID_STATUSES.include?(status)

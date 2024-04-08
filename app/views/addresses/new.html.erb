@@ -1,9 +1,3 @@
-<h1>New address</h1>
+<%= page_caption "Add Address for: #{@address.membership&.names}" %>
 
-<%= render "form", address: @address %>
-
-<br>
-
-<div>
-  <%= link_to "Back to addresses", addresses_path %>
-</div>
+<%= render "form", address: @address, path: addresses_path(membership_id: @membership.id)  %>

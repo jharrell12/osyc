@@ -79,16 +79,15 @@ module FormHelper
 
   def show_button(lbl, url, opts = {})
     lbl ||= svg_show
-    opts[:method] = :get
     opts[:class] = 'btn py-0 btn-outline-info mx-1'
-    button_to(lbl, url, opts)
+    link_to(lbl, url, opts)
   end
 
   def edit_button(lbl, url, opts = {})
     lbl ||= svg_pencil_fill
     opts[:method] = :get
     opts[:class] = 'btn py-0 btn-outline-success mx-2'
-    button_to(lbl, url, opts)
+    link_to(lbl, url, opts)
   end
 
   def edit_link_button(lbl, url, opts = {})
@@ -115,16 +114,29 @@ module FormHelper
     button_to(lbl, url, opts)
   end
 
-  def delete_link(lbl, url, confirm = nil, opts = {})
-    lbl ||= svg_trash_fill
-    opts[:method] = :delete
-    opts[:class] ||= 'btn btn-link text-danger p-0 border-0 align-baseline text-decoration-none'    
-    #opt = {class: 'btn btn-link text-danger p-0 border-0 align-baseline', method: :delete}
-    # data-confirm does not work in bootstrap5!
-    #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
-    opts[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
-    button_group_div(button_to(lbl, url, opts))
-  end  
+  # def delete_link(lbl, url, confirm = nil, opts = {})
+  #   lbl ||= svg_trash_fill
+  #   opts[:method] = :delete
+  #   opts[:class] ||= 'btn btn-link text-danger p-0 border-0 align-baseline text-decoration-none'    
+  #   #opt = {class: 'btn btn-link text-danger p-0 border-0 align-baseline', method: :delete}
+  #   # data-confirm does not work in bootstrap5!
+  #   #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
+  #   opts[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
+  #   button_group_div(button_to(lbl, url, opts))
+  # end  
+
+  def turbo_delete_button(lbl, url, confirm = nil, opts = {})  
+    lbl ||= svg_trash
+    opts[:class] ||= 'btn btn-outline-danger py-0 mx-1'
+    opts[:data] = { turbo_method: :delete }
+    opts[:data][:turbo_confirm] = "Are you sure you want to delete #{confirm}?" unless confirm.blank?
+    link_to(lbl, url, opts) 
+  end
+
+  def turbo_delete_link(lbl, url, confirm = nil, opts = {})
+    opts[:class] ||= 'text-danger'
+    turbo_delete_button(lbl, url, confirm, opts)  
+  end
 
   def filter_button(lbl = nil)
     lbl ||= 'Filter'

@@ -1,57 +1,18 @@
-<%= form_with(model: address) do |form| %>
-  <% if address.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+<%= 
+input_form(path) do |f|
+  f << error_messages_for(:address)
+  f << input_table_form do |s|
+    s << input_table_row('Label', required_text_field(:address, :label))
+    s << input_table_row('Street', std_text_field(:address, :street))
+    s << input_table_row('City', std_text_field(:address, :city))
+    s << input_table_row('State', std_text_field(:address, :state))
+    s << input_table_row('Zipcode', std_text_field(:address, :zipcode))
+    s << input_table_row('Start Date', std_text_field(:address, :start_date, readonly: true)) 
+    s << input_table_row('End Date', std_text_field(:address, :end_date, readonly: true)) if address.end_date.present?
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', membership_path(address.membership)))
+    s << input_table_row('', loading_spinner)
+  end
+end
+%>
 
-      <ul>
-        <% address.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :person_id, style: "display: block" %>
-    <%= form.text_field :person_id %>
-  </div>
-
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-    <%= form.label :label, style: "display: block" %>
-    <%= form.text_field :label %>
-  </div>
-
-  <div>
-    <%= form.label :street, style: "display: block" %>
-    <%= form.text_field :street %>
-  </div>
-
-  <div>
-    <%= form.label :city, style: "display: block" %>
-    <%= form.text_field :city %>
-  </div>
-
-  <div>
-    <%= form.label :state, style: "display: block" %>
-    <%= form.text_field :state %>
-  </div>
-
-  <div>
-    <%= form.label :zipcode, style: "display: block" %>
-    <%= form.text_field :zipcode %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= deactivate_reactivate_button_group(address) %>

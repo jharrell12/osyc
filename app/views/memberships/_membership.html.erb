@@ -7,6 +7,8 @@
   end
 %>
 
+<%= addresses_table(membership) %>
+
 <div id="<%= dom_id membership %>">
   <%=
   #caption = data_table_caption('Membership', member_actions(membership).first)
@@ -24,13 +26,15 @@
 %>
 </div>
 
+<hr>
+
 <div>
 <%=
-  caption = data_table_caption('Invoices', add_button('New Invoice', new_invoice_path(membership_id: @membership.id)))
-  headers = data_item_row(%w(action status posted_date due_date balance_due).map(&:titlecase))
+  caption = data_table_caption('Invoices', show_button(nil, invoices_path(membership_id: @membership.id)))
+  headers = data_item_row(%w(status posted_date due_date balance_due).map(&:titlecase))
   data_table(caption, headers) do |s|
     membership.invoices.each do |invoice|
-      s << field_label_row([invoice_actions(invoice), invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
+      s << field_label_row([invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
     end
   end
 %>
