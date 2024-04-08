@@ -104,22 +104,26 @@ module FormHelper
     link_to(lbl, url, opts)
   end 
 
-  def delete_button(lbl, url, confirm = nil)
+  def delete_button(lbl, url, confirm = nil, opts = {})
     lbl ||= svg_trash_fill
-    opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
+    opts[:method] = :delete
+    opts[:class] ||= 'btn py-0 btn-outline-danger mx-1'
+    #opt = {class: 'btn py-0 btn-outline-danger mx-1', method: :delete}
     # data-confirm does not work in bootstrap5!
     #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
-    opt[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
-    button_to(lbl, url, opt)
+    opts[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
+    button_to(lbl, url, opts)
   end
 
-  def delete_link(lbl, url, confirm = nil)
+  def delete_link(lbl, url, confirm = nil, opts = {})
     lbl ||= svg_trash_fill
-    opt = {class: 'btn btn-link text-danger p-0 border-0 align-baseline', method: :delete}
+    opts[:method] = :delete
+    opts[:class] ||= 'btn btn-link text-danger p-0 border-0 align-baseline text-decoration-none'    
+    #opt = {class: 'btn btn-link text-danger p-0 border-0 align-baseline', method: :delete}
     # data-confirm does not work in bootstrap5!
     #opt[:data] = {confirm: "Are you sure you want to delete #{confirm}?"} unless confirm.blank?
-    opt[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
-    button_group_div(button_to(lbl, url, opt))
+    opts[:onclick] =  "return confirm('Are you sure you want to delete #{confirm}?');" unless confirm.blank?
+    button_group_div(button_to(lbl, url, opts))
   end  
 
   def filter_button(lbl = nil)

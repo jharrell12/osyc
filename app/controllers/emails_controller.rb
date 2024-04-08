@@ -52,11 +52,19 @@ class EmailsController < ApplicationController
   # DELETE /emails/1 or /emails/1.json
   def destroy
     @membership = @email.person.membership
-    #@email.destroy!
-    @email.update!(end_date: Date.today)    
+    if params[:operation] == 'destroy'
+      @email.destroy!
+      msg = 'Email address was deleted'
+    elsif params[:operation] == 'reactivate'
+      @email.update!(end_date: nil)    
+      msg = 'Email address was reactivated'
+    else
+      @email.update!(end_date: Date.today)   
+      msg = 'Email address was deactivated' 
+    end
 
     respond_to do |format|
-      format.html { redirect_to membership_url(@email.person.membership), notice: "Email address was deactivated." }
+      format.html { redirect_to membership_url(@email.person.membership), notice: msg }
       format.json { head :no_content }
     end
   end

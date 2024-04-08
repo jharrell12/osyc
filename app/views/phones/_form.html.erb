@@ -5,11 +5,22 @@ input_form(path) do |f|
   f << input_table_form do |s|
     s << input_table_row('Label', required_text_field(:phone, :label))
     s << input_table_row('Number', required_text_field(:phone, :number))
-    s << input_table_row('End Date', std_date_field(:phone, :end_date)) if phone.end_date.present?
+    s << input_table_row('End Date', std_text_field(:phone, :end_date, readonly: true)) if phone.end_date.present?
     s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', cancel_path))
     s << input_table_row('', loading_spinner)
   end
 end
 %>
 
-<%= delete_button('Deactivate', phone, "this phone number") unless phone.new_record? || phone.end_date.present? %>
+<%=
+  if !phone.new_record?
+    if phone.end_date.present?
+      safe_join([
+        button_to('Reactivate', phone, {class: 'btn py-0 btn-outline-success mx-1', method: :delete, params: {operation: :reactivate}}),
+        delete_button('Delete', phone, "this phone number permanently", params: {operation: :destroy}), 
+      ], ' '.to_nb)
+    else
+      delete_button('Deactivate', phone, false, params: {operation: :deactivate})
+    end
+  end
+%>
