@@ -25,9 +25,8 @@ RUN apt-get update -qq && \
 RUN apt remove cmdtest npm nodejs -y
 RUN apt autoremove
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs && \
-    node -v ; sleep 5 && \
-    npm -v ;  sleep 5
+    apt-get install -y nodejs
+
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -54,12 +53,8 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install Node.js
-#RUN apt remove cmdtest npm nodejs -y
-#RUN apt autoremove
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs && \
-    node -v ; sleep 5 && \
-    npm -v ;  sleep 5
+    apt-get install -y nodejs
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -73,7 +68,7 @@ USER rails:rails
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start the server by default, this can be overwritten at runtime: docker run -it osyc /bin/bash
+# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
 
