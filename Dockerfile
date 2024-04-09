@@ -21,6 +21,14 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 
+# Install lastest version of Node.js
+RUN apt remove cmdtest npm nodejs -y
+RUN apt autoremove
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    node -v ; sleep 5 && \
+    npm -v ;  sleep 5
+
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
@@ -45,6 +53,14 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Install Node.js
+#RUN apt remove cmdtest npm nodejs -y
+#RUN apt autoremove
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    node -v ; sleep 5 && \
+    npm -v ;  sleep 5
+
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
@@ -57,6 +73,9 @@ USER rails:rails
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start the server by default, this can be overwritten at runtime
+# Start the server by default, this can be overwritten at runtime: docker run -it osyc /bin/bash
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+# login as rails: docker run -it osyc /bin/bash
+# login as root: docker exec -it -u 0 osyc /bin/bash
