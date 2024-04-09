@@ -8,6 +8,7 @@ class Membership < ApplicationRecord
   has_many :charges, through: :invoices
   has_many :payments, through: :invoices
   include StartEndDates
+  scope :active,         -> { current.where(status: :active) }
 
   attribute :status, default: -> { VALID_STATUSES.first }
 
