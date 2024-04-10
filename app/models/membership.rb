@@ -50,7 +50,13 @@ class Membership < ApplicationRecord
     #phones.current.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
     
     # refactored to avoid n+1 query on index page
-    phones.select{|p| p.current?}.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
+    #phones.select{|phone| phone.current?}.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb}
+
+    people.collect do |person|
+      phones.select{|phone| phone.current?}.collect do |phone|
+        "#{phone.label}: #{phone.number_str} #{person.first_name} ".to_nb
+      end
+    end    
   end
 
 end
