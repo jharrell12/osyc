@@ -2,7 +2,8 @@
 input_form(path) do |f|
   f << error_messages_for(:address)
   f << input_table_form do |s|
-    s << input_table_row('Label', required_text_field(:address, :label))
+    s << input_table_row('Name',  required_select_field(:address, :person_id, address_person_options_for_select(address)) )
+    s << input_table_row('Label', required_text_field(:address, :label, autofocus: true))
     s << input_table_row('Street', std_text_field(:address, :street))
     s << input_table_row('City', std_text_field(:address, :city))
     s << input_table_row('State', std_text_field(:address, :state))

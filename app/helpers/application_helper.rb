@@ -87,3 +87,17 @@ end
 
 #NOTES
 # https://stackoverflow.com/questions/67655096/bootstrap-5-form-group-form-row-form-inline-not-working
+
+  def deactivate_reactivate_button_group(rec)
+    if !rec.new_record?
+      if rec.end_date.present?
+        navbar_button_group do |s|      
+          s << button_to('Reactivate', rec, {class: 'btn py-0 btn-outline-success mx-1', method: :delete, params: {operation: :reactivate}})
+          s << delete_button('Delete', rec, "this address permanently", params: {operation: :destroy})
+        end
+      else
+        delete_button('Deactivate', rec, false, params: {operation: :deactivate})
+      end
+    end    
+  end
+  

@@ -32,4 +32,7 @@ module AddressesHelper
     end  
   end
 
+  def address_person_options_for_select(addr)
+    membership_people_options_for_select(addr.membership)
+  end
 end
