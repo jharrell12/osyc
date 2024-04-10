@@ -29,8 +29,20 @@ class Membership < ApplicationRecord
     VALID_STATUSES
   end
 
+  def unique_last_names
+    people.collect(&:last_name).compact.uniq
+  end
+
+  def last_name
+    unique_last_names.size == 1 ? people.first.last_name : nil
+  end
+
+  def last_names
+    unique_last_names.join(' and ')
+  end
+
   def names
-    if people.collect(&:last_name).uniq.size == 1
+    if unique_last_names.size == 1
       [people.map(&:first_name).join(' & '), people.first.last_name].join(' ')
     else
       people.collect{|person| person.full_name}.join(' and ')

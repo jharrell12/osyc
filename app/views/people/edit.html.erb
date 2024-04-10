@@ -1,3 +1,3 @@
-<%= page_caption "Edit Person" %>
+<%= page_caption "Edit Person for #{@person.membership&.last_names} Membership" %>
 
 <%= render "form", person: @person, path: person_path(@person) %>

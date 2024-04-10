@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @membership = Membership.find(params[:membership_id])
-    @person = @membership.people.build 
+    @person = @membership.people.build(last_name: @membership.last_name)
   end
 
   # GET /people/1/edit
@@ -22,7 +22,8 @@ class PeopleController < ApplicationController
 
   # POST /people or /people.json
   def create
-    @person = Person.new(person_params)
+    @membership = Membership.find(params[:membership_id])
+    @person = @membership.people.build(person_params)
 
     respond_to do |format|
       if @person.save
