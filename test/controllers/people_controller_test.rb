@@ -20,7 +20,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
       post people_url, params: { person: { birth_year: @person.birth_year, dob: @person.dob, first_name: @person.first_name, last_name: @person.last_name, membership_id: @person.membership_id } }
     end
 
-    assert_redirected_to person_url(Person.last)
+    assert_redirected_to membership_url(@person.membership_id)
   end
 
   test "should show person" do
@@ -35,7 +35,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
 
   test "should update person" do
     patch person_url(@person), params: { person: { birth_year: @person.birth_year, dob: @person.dob, first_name: @person.first_name, last_name: @person.last_name, membership_id: @person.membership_id } }
-    assert_redirected_to person_url(@person)
+    assert_redirected_to membership_url(@person.membership_id)
   end
 
   test "should destroy person" do
@@ -43,6 +43,6 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
       delete person_url(@person)
     end
 
-    assert_redirected_to people_url
+    assert_redirected_to membership_url(@person.membership_id)
   end
 end
