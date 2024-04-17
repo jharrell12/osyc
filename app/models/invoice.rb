@@ -3,7 +3,8 @@ class Invoice < ApplicationRecord
   has_many :charges, dependent: :destroy
   has_many :payments, dependent: :destroy
   attribute :status, default: -> { VALID_STATUSES.first }
-  scope :pending,         -> { current.where(status: :pending) }
+  scope :pending,         -> { where(status: 'Pending') }
+  scope :balance_due,     -> { pending.where("balance_due > 0")}
 
   VALID_STATUSES = %w(Draft Pending Paid Canceled).map(&:titleize)
   validate :validate_status

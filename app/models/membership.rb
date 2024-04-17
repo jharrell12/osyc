@@ -9,6 +9,7 @@ class Membership < ApplicationRecord
   has_many :payments, through: :invoices
   include StartEndDates
   scope :sorted, -> { order(end_date: :asc, status: :asc, start_date: :desc) }
+  scope :current,         -> { where("(end_date is null) OR DATE(end_date) > DATE('now')") }
   scope :active,         -> { current.where(status: 'Active') }
 
   attribute :status, default: -> { VALID_STATUSES.first }
@@ -46,6 +47,14 @@ class Membership < ApplicationRecord
     unique_last_names.join(' and ')
   end
 
+  def first_names
+    if unique_last_names.size == 1
+      people.map(&:first_name).join(' & ')
+    else
+      people.collect{|person| person.full_name}.join(' and ')
+    end
+  end
+
   def names
     if unique_last_names.size == 1
       [people.map(&:first_name).join(' & '), people.first.last_name].join(' ')
@@ -68,6 +77,10 @@ class Membership < ApplicationRecord
     
     # refactored to avoid n+1 query on index page
     phones.select{|phone| phone.current?}.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb} 
+  end
+
+  def active_addresses_inline
+    addresses.select{|a| a.current?}.collect{|a| a.inline_format}
   end
 
 end

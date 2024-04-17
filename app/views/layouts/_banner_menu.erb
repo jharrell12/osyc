@@ -15,6 +15,14 @@
       <li class="nav-item active"><a class="nav-link" href="<%= invoices_path %>">Invoices</a></li>
 
       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Reports</a>
+        <div class="dropdown-menu dropdown-menu-right" >
+            <%= dropdown_item_link 'Roster', '/reports/roster', target: '_blank' %>
+            <%= dropdown_item_link 'Balance Due', '/reports/balance_due', target: '_blank' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"><%= svg_gear %></a>
         <div class="dropdown-menu dropdown-menu-right" >
             <%= dropdown_item_link 'My Account', null_path %>
@@ -27,6 +35,8 @@
           <% end %>
         </div>
       </li>
+
+
     </ul>
   </div>
 </nav>

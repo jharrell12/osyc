@@ -1,0 +1,24 @@
+<%=
+  caption = data_table_caption('Current Roster')
+  header = field_label_row(['Last Names', 'First Names','Address', 'Phones', 'Emails','Joined','Children', 'Slip', 'Boats'])
+  data_table(caption, header) do |s|
+    if @memberships.empty?
+      flash[:notice] = 'No matching members found.'
+      nil
+    else
+      @memberships.each  do |member| 
+        s << data_item_row([
+          member.last_name,
+          member.first_names,
+          safe_join(member.active_addresses_inline, '<br>'.html_safe),
+          safe_join(member.active_phones_strs, '<br>'.html_safe),
+          safe_join(member.active_emails_strs, '<br>'.html_safe),
+          member.start_date.year,
+          member.children,
+          member.slip_assignment,
+          member.boats,
+        ])
+      end
+    end
+  end  
+%>

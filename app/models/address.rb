@@ -10,4 +10,7 @@ class Address < ApplicationRecord
   normalizes :state, with: -> { _1.strip.upcase }
   normalizes :label, with: -> { _1.strip.titleize }
 
+  def inline_format
+    [street, city, state, zipcode].join(' ')
+  end
 end

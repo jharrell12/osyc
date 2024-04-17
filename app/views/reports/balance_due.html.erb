@@ -1,0 +1,24 @@
+<%=
+  caption = data_table_caption('Balance Due')
+  header = field_label_row(['Amount', 'Due', 'Names', 'Phones', 'Emails','Joined', 'Slip', 'Boats'])
+  data_table(caption, header) do |s|
+    if @invoices.empty?
+      flash[:notice] = 'No matching invoices found.'
+      nil
+    else
+      @invoices.each  do |invoice| 
+        member = invoice.membership
+        s << data_item_row([
+          number_to_currency(invoice.calculate_balance_due, strip_insignificant_zeros: true),
+          invoice.due_date,
+          member.names,
+          safe_join(member.active_phones_strs, '<br>'.html_safe),
+          safe_join(member.active_emails_strs, '<br>'.html_safe),
+          member.start_date.year,
+          member.slip_assignment,
+          member.boats,
+        ])
+      end
+    end
+  end  
+%>
