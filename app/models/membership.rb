@@ -8,7 +8,8 @@ class Membership < ApplicationRecord
   has_many :charges, through: :invoices
   has_many :payments, through: :invoices
   include StartEndDates
-  scope :active,         -> { current.where(status: :active) }
+  scope :sorted, -> { order(end_date: :asc, status: :asc, start_date: :desc) }
+  scope :active,         -> { current.where(status: 'Active') }
 
   attribute :status, default: -> { VALID_STATUSES.first }
 
@@ -27,6 +28,10 @@ class Membership < ApplicationRecord
 
   def self.status_options_for_select
     VALID_STATUSES
+  end
+
+  def has_slip?
+    slip_assignment.present?
   end
 
   def unique_last_names
