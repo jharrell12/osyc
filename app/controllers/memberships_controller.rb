@@ -95,18 +95,22 @@ class MembershipsController < ApplicationController
     end
 
     def new_person_params(n)
+      return {} unless params[:people].present? 
       params.require(:people).require(n.to_s).permit(:last_name, :first_name, :dob)
     end
 
     def new_email_params(n)
+      return {} unless params[:emails].present? 
       params.require(:emails).require(n.to_s).permit(:address)
     end
 
     def new_phone_params(n)
+      return {} unless params[:phones].present?
       params.require(:phones).require(n.to_s).permit(:number)
     end
 
     def new_address_params
+      return {} unless params[:address].present?
       params.require(:address).permit(:street, :city, :state, :zipcode)
     end
 

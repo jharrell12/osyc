@@ -3,13 +3,13 @@
 one:
   person: one
   start_date: 2024-03-24
-  end_date: 2024-03-24
+  end_date: 
   label: MyString
-  address: MyString
+  address: MyString@example.com
 
 two:
   person: two
   start_date: 2024-03-24
-  end_date: 2024-03-24
+  end_date: 
   label: MyString
-  address: MyString
+  address: MyString@example.com

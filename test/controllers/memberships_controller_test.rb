@@ -17,10 +17,9 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create membership" do
     assert_difference("Membership.count") do
-      post memberships_url, params: { membership: { boats: @membership.boats, children: @membership.children, end_date: @membership.end_date, slip_assignment: @membership.slip_assignment, start_date: @membership.start_date, status: @membership.status } }
+      post memberships_url, params: { "membership"=>{"status"=>"Inquiry", "start_date"=>"2024-04-16", "children"=>"", "boats"=>""}, "people"=>{"0"=>{"last_name"=>"smith", "first_name"=>"", "dob"=>""}, "1"=>{"last_name"=>"", "first_name"=>"", "dob"=>""}}, "phones"=>{"0"=>{"number"=>""}, "1"=>{"number"=>""}}, "emails"=>{"0"=>{"address"=>""}, "1"=>{"address"=>""}}, "address"=>{"street"=>"", "city"=>"", "state"=>"", "zipcode"=>""} }
     end
-
-    assert_redirected_to membership_url(Membership.last)
+    assert_redirected_to memberships_url
   end
 
   test "should show membership" do
