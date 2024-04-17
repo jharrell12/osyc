@@ -79,8 +79,4 @@ class Membership < ApplicationRecord
     phones.select{|phone| phone.current?}.collect{|phone| "#{phone.label}: #{phone.number_str} #{phone.person.first_name} ".to_nb} 
   end
 
-  def active_addresses_inline
-    addresses.select{|a| a.current?}.collect{|a| a.inline_format}
-  end
-
 end

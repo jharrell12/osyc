@@ -10,7 +10,7 @@
         s << data_item_row([
           member.last_name,
           member.first_names,
-          safe_join(member.active_addresses_inline, '<br>'.html_safe),
+          address_two_line(member),
           safe_join(member.active_phones_strs, '<br>'.html_safe),
           safe_join(member.active_emails_strs, '<br>'.html_safe),
           member.start_date.year,
