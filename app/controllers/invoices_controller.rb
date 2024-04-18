@@ -4,6 +4,7 @@ class InvoicesController < ApplicationController
   # GET /invoices or /invoices.json
   def index
     @invoices = Invoice.all
+    @invoices = @invoices.where("invoices.status like :status", status: params.dig(:search,:status).to_s + '%')
   end
 
   # GET /invoices/1 or /invoices/1.json
