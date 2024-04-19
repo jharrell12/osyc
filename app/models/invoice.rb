@@ -10,6 +10,7 @@ class Invoice < ApplicationRecord
   validate :validate_status
 
   before_save :calculate_balance_due
+  after_touch :save
 
   def validate_status
     if !VALID_STATUSES.include?(status)
