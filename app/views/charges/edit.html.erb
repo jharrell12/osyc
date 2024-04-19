@@ -1,10 +1,3 @@
-<h1>Editing charge</h1>
+<%= page_caption "Edit Charge for #{@charge.invoice.membership&.last_names} Membership" %>
 
-<%= render "form", charge: @charge %>
-
-<br>
-
-<div>
-  <%= link_to "Show this charge", @charge %> |
-  <%= link_to "Back to charges", charges_path %>
-</div>
+<%= render "form", charge: @charge, path: charge_path(@charge) %>

@@ -13,6 +13,7 @@ class ChargesController < ApplicationController
   # GET /charges/new
   def new
     @charge = Charge.new
+    @charge.invoice_id = params[:invoice_id]
   end
 
   # GET /charges/1/edit
@@ -25,7 +26,7 @@ class ChargesController < ApplicationController
 
     respond_to do |format|
       if @charge.save
-        format.html { redirect_to charge_url(@charge), notice: "Charge was successfully created." }
+        format.html { redirect_to invoices_path(membership_id: @charge.invoice.membership_id), notice: "Charge was successfully created." }
         format.json { render :show, status: :created, location: @charge }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class ChargesController < ApplicationController
   def update
     respond_to do |format|
       if @charge.update(charge_params)
-        format.html { redirect_to charge_url(@charge), notice: "Charge was successfully updated." }
+        format.html { redirect_to invoices_path(membership_id: @charge.invoice.membership_id), notice: "Charge was successfully updated." }
         format.json { render :show, status: :ok, location: @charge }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -1,32 +1,12 @@
-<%= form_with(model: charge) do |form| %>
-  <% if charge.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(charge.errors.count, "error") %> prohibited this charge from being saved:</h2>
-
-      <ul>
-        <% charge.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :invoice_id, style: "display: block" %>
-    <%= form.text_field :invoice_id %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.number_field :price %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= 
+input_form(path) do |f|
+  f << error_messages_for(:person)
+  f << input_table_form do |s|
+    s << input_table_row('Invoice ID', required_number_field(:charge, :invoice_id))
+    s << input_table_row('Description', required_text_field(:charge, :description))
+    s << input_table_row('Price', std_number_field(:charge, :price))
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', invoices_path(membership_id: charge.invoice.membership_id)))
+    s << input_table_row('', loading_spinner)
+  end
+end
+%>
