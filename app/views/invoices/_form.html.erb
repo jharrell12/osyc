@@ -1,11 +1,10 @@
 <%= 
 input_form(path) do |f|
   f << error_messages_for(:person)
+  f << hidden_field(:invoice, :membership_id)
   f << input_table_form do |s|
-    s << input_table_row('Member ID', required_number_field(:invoice, :membership_id))
     s << input_table_row('Status', required_select_field(:invoice, :status, Invoice.status_options_for_select, {}, autofocus: true))
     s << input_table_row('Due Date', required_date_field(:invoice, :due_date))
-    s << input_table_row('Balance Due', std_number_field(:invoice, :balance_due))
     s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', invoices_path(membership_id: invoice.membership_id)))
     s << input_table_row('', loading_spinner)
   end

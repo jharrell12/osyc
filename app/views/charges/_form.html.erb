@@ -1,8 +1,8 @@
 <%= 
 input_form(path) do |f|
   f << error_messages_for(:charge)
+  f << hidden_field(:charge, :invoice_id)
   f << input_table_form do |s|
-    s << input_table_row('Invoice ID', required_number_field(:charge, :invoice_id))
     s << input_table_row('Description', required_text_field(:charge, :description))
     s << input_table_row('Price', std_number_field(:charge, :price))
     s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', invoices_path(membership_id: charge.invoice.membership_id)))

@@ -1,8 +1,8 @@
 <%= 
 input_form(path) do |f|
   f << error_messages_for(:payment)
+  f << hidden_field(:payment, :invoice_id)
   f << input_table_form do |s|
-    s << input_table_row('Invoice ID', required_number_field(:payment, :invoice_id))
     s << input_table_row('Date', required_date_field(:payment, :date))
     s << input_table_row('Check Number', required_text_field(:payment, :check_number))
     s << input_table_row('Amount', std_number_field(:payment, :amount))
