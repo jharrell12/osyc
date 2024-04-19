@@ -17,46 +17,23 @@
 
 
 <%=
-  caption = data_table_caption('', button_group_div(add_button((svg_file_plus + "New Invoice"))))
-  header = field_label_row(['Action', 'Membership', 'Status', 'Posted','Due','Balance', ''])
+  caption = data_table_caption('', button_group_div(add_button((svg_plus + "New Invoice"))))
+  header = field_label_row(['Action', 'Membership', 'Status', 'Posted','Due','Balance'])
   data_table(caption, header) do |s|
-
-    @invoices.each do |invoice|
-      s << data_item_row([
-      invoice_actions(invoice), 
-      invoice.membership_id,
-      invoice.status, 
-      invoice.posted_date, 
-      invoice.due_date, 
-      invoice.balance_due]
-      )
+    if @invoices.empty? 
+      flash[:notice] = 'No invoices found.'
+      nil
+    else
+      @invoices.each do |invoice|
+        s << data_item_row([
+          invoice_actions(invoice), 
+          invoice.membership_id,
+          invoice.status, 
+          invoice.posted_date, 
+          invoice.due_date, 
+          invoice.balance_due
+        ])
+      end
     end
-
-
-    # if @memberships.empty?
-    #   flash[:notice] = 'No matching members found.'
-    #   nil
-    # else
-    #   @memberships.each  do |member| 
-
-    #     people = member.people
-    #     first_name = people.first.present? ? people.first.first_name : '(none)'
-
-    #     s << data_item_row([
-    #       membership_actions(member),
-    #       member.id,
-    #       member.status.titleize,
-    #       member.start_date,
-    #       member.names,
-    #       safe_join(member.active_phones_strs, '<br>'.html_safe),
-    #       safe_join(member.active_emails_strs, '<br>'.html_safe),
-    #       delete_button(nil, membership_path(member), "Member #{member.id}"),
-    #     ])
-    #   end
-    # end
-
-
   end
 %>
-
-<%= link_to "New invoice", new_invoice_path %>

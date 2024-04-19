@@ -13,11 +13,12 @@ module InvoicesHelper
   end
 
   def invoices_header
-    field_label_row(%w(action status posted_date due_date balace_due).map(&:titlecase))
+    field_label_row(%w(status posted_date due_date balace_due).map(&:titlecase))
   end
 
+  # TODO: make posted date display just date, not time
   def invoice_row(invoice)
-    data_item_row([invoice_actions(invoice), invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
+    data_item_row([invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
   end
 
   def invoices_table(membership)

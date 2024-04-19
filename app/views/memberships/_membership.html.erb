@@ -4,18 +4,3 @@
 <div class=container><%= addresses_table(membership) %></div>
 <div class=container><%= member_info_table(membership) %></div>
 <div class=container><%= invoices_table(membership) %></div>
-
-
-<hr>
-
-<%=
-  caption = data_table_caption('Invoices', show_button(nil, invoices_path(membership_id: @membership.id)))
-  headers = field_label_row(%w(status posted_date due_date balance_due).map(&:titlecase))
-  data_table(caption, headers) do |s|
-    membership.invoices.each do |invoice|
-      s << data_item_row([invoice.status, invoice.posted_date, invoice.due_date, invoice.balance_due])
-    end
-  end
-%>
-
-</div>
