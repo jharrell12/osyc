@@ -12,7 +12,7 @@
         <input hidden id='membership_id' name='membership_id' value='<%= params[:membership_id] %>' >
         <%= select(:search, :status, [''] + Invoice.status_options_for_select, {selected: params.dig(:search, :status)}, {autofocus: true, class: 'mt-3'}) %>
         <%= submit_tag('Search', class: 'btn btn-outline-success mt-3 mx-1') %>
-        <%= link_to 'Clear', invoices_path(membership_id: params[:membership_id], search: {clear: true}), class: 'btn btn-outline-danger mx-1 mt-3' %>
+        <%= link_to 'Clear', invoices_path(search: {clear: true}), class: 'btn btn-outline-danger mx-1 mt-3' %>
       </form>    
     </div>
   </nav>
