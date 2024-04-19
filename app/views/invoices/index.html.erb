@@ -5,10 +5,10 @@
      <ul class="navbar-nav mr-auto">
      </ul>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <%= form_tag(invoices_path, method: :get, class: 'd-flex flex-row align-items-right flex-wrap', autocomplete: 'off') %>
+      <%= form_tag(invoices_path(membership_id: params[:membership_id]), method: :get, class: 'd-flex flex-row align-items-right flex-wrap', autocomplete: 'off') %>
         <input autofocus id='search_status' name='search[status]' class="mt-3" placeholder="Status" value="<%= params.dig(:search, :status) %>">
         <%= submit_tag('Search', class: 'btn btn-outline-success mt-3 mx-1') %>
-        <%= link_to 'Clear', invoices_path(search: {clear: true}), class: 'btn btn-outline-danger mx-1 mt-3' %>
+        <%= link_to 'Clear', invoices_path(membership_id: params[:membership_id], search: {clear: true}), class: 'btn btn-outline-danger mx-1 mt-3' %>
       </form>    
     </div>
   </nav>

@@ -5,6 +5,7 @@ class InvoicesController < ApplicationController
   def index
     @invoices = Invoice.all
     @invoices = @invoices.where("invoices.status like :status", status: params.dig(:search,:status).to_s + '%')
+    params[:membership_id].present? ? @invoices = @invoices.where(membership_id: params[:membership_id]) : nil
   end
 
   # GET /invoices/1 or /invoices/1.json
