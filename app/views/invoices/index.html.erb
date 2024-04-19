@@ -17,7 +17,7 @@
 
 
 <%=
-  caption = data_table_caption('', button_group_div(add_button((svg_plus + "New Invoice"))))
+  caption = data_table_caption('', button_group_div(add_button((svg_plus + "New Invoice"), new_invoice_path(membership_id: params[:membership_id]))))
   header = field_label_row(['Action', 'Membership', 'Status', 'Posted','Due','Balance'])
   data_table(caption, header) do |s|
     if @invoices.empty? 

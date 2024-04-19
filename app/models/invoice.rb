@@ -17,6 +17,10 @@ class Invoice < ApplicationRecord
     end
   end
 
+  def self.status_options_for_select
+    VALID_STATUSES
+  end
+
   def calculate_balance_due
     self.balance_due = charges.sum(:price) - payments.sum(:amount)
   end

@@ -1,9 +1,4 @@
-<h1>New invoice</h1>
+<%= page_caption "Create Invoice for #{@invoice.membership&.last_names} Membership" %>
 
-<%= render "form", invoice: @invoice %>
+<%= render "form", invoice: @invoice, path: invoices_path(membership_id: @membership) %>
 
-<br>
-
-<div>
-  <%= link_to "Back to invoices", invoices_path %>
-</div>

@@ -4,7 +4,7 @@ module InvoicesHelper
     [navbar_button_group do |s|
       s << edit_link(nil, edit_invoice_path(invoice))
       s << '  '.to_nb
-      s << turbo_delete_link(nil, invoice_path(invoice), "Invoice #{invoice.id}")
+      invoice.status == "Draft" ? s << turbo_delete_link(nil, invoice_path(invoice), "Invoice #{invoice.id}") : nil
     end, 1]
   end
 
