@@ -1,3 +1,3 @@
 <%= page_caption "Edit Invoice for #{@invoice.membership&.last_names} Membership" %>
 
-<%= render "form", invoice: @invoice, path: invoices_path(membership_id: @membership) %>
+<%= render "form", invoice: @invoice, path: invoice_path(@invoice) %>
