@@ -28,7 +28,7 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to membership_url(@invoice.membership_id), notice: "Invoice was successfully created." }
+        format.html { redirect_to invoices_path(membership_id: @invoice.membership_id), notice: "Invoice was successfully created." }
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new, status: :unprocessable_entity }
