@@ -100,4 +100,12 @@ end
       end
     end    
   end
+
+  def delete_button_cond(rec)
+    if !rec.new_record?
+      navbar_button_group do |s|
+        s << delete_button('Delete', rec, "this charge permanently", params: {operation: :destroy})
+      end
+    end
+  end
   

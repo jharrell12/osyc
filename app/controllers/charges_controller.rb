@@ -53,7 +53,7 @@ class ChargesController < ApplicationController
     @charge.destroy!
 
     respond_to do |format|
-      format.html { redirect_to charges_url, notice: "Charge was successfully destroyed." }
+      format.html { redirect_to invoices_path(membership_id: @charge.invoice.membership_id), notice: "Charge was successfully destroyed." }
       format.json { head :no_content }
     end
   end
