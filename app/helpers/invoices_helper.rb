@@ -18,7 +18,7 @@ module InvoicesHelper
 
   # TODO: make posted date display just date, not time
   def invoice_row(invoice)
-    data_item_row([invoice.status, invoice.posted_date.strftime('%F'), invoice.due_date, invoice.balance_due])
+    data_item_row([invoice.status, invoice.posted_date&.strftime('%F'), invoice.due_date, invoice.balance_due])
   end
 
   def invoices_table(membership)

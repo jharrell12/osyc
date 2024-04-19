@@ -32,7 +32,7 @@
           invoice_actions(invoice), 
           invoice.membership_id,
           invoice.status, 
-          invoice.posted_date.strftime('%F'), 
+          invoice.posted_date&.strftime('%F'), 
           invoice.due_date, 
           invoice.balance_due,
           charges_links(invoice),
