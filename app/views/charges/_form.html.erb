@@ -1,6 +1,6 @@
 <%= 
 input_form(path) do |f|
-  f << error_messages_for(:person)
+  f << error_messages_for(:charge)
   f << input_table_form do |s|
     s << input_table_row('Invoice ID', required_number_field(:charge, :invoice_id))
     s << input_table_row('Description', required_text_field(:charge, :description))

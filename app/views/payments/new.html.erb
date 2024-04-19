@@ -1,9 +1,3 @@
-<h1>New payment</h1>
+<%= page_caption "Create payment for #{@payment.invoice.membership&.last_names} Membership" %>
 
-<%= render "form", payment: @payment %>
-
-<br>
-
-<div>
-  <%= link_to "Back to payments", payments_path %>
-</div>
+<%= render "form", payment: @payment, path: payments_path(invoice_id: @invoice) %>

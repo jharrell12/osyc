@@ -1,37 +1,13 @@
-<%= form_with(model: payment) do |form| %>
-  <% if payment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
-
-      <ul>
-        <% payment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :invoice_id, style: "display: block" %>
-    <%= form.text_field :invoice_id %>
-  </div>
-
-  <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
-  </div>
-
-  <div>
-    <%= form.label :amount, style: "display: block" %>
-    <%= form.number_field :amount %>
-  </div>
-
-  <div>
-    <%= form.label :check_number, style: "display: block" %>
-    <%= form.text_field :check_number %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+<%= 
+input_form(path) do |f|
+  f << error_messages_for(:payment)
+  f << input_table_form do |s|
+    s << input_table_row('Invoice ID', required_number_field(:payment, :invoice_id))
+    s << input_table_row('Date', required_date_field(:payment, :date))
+    s << input_table_row('Check Number', required_text_field(:payment, :check_number))
+    s << input_table_row('Amount', std_number_field(:payment, :amount))
+    s << input_table_row('', submit_and_cancel_buttons('Save', 'Cancel', invoices_path(membership_id: payment.invoice.membership_id)))
+    s << input_table_row('', loading_spinner)
+  end
+end
+%>
