@@ -72,4 +72,4 @@ end
 gem "bootstrap", '~> 5.3.2'
 gem "sassc-rails"
 
-gem "activerecord-enhancedsqlite3-adapter", "~> 0.6.0"
+# gem "activerecord-enhancedsqlite3-adapter", "~> 0.6.0"
