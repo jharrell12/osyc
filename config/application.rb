@@ -24,6 +24,6 @@ module Osyc
     config.time_zone = "Eastern Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.enhanced_sqlite3.isolate_connection_pools = true
+    # config.enhanced_sqlite3.isolate_connection_pools = true
   end
 end
